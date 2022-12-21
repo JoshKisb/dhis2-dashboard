@@ -31,7 +31,7 @@ export const Dashboard = observer(() => {
 	}, []);
 
 	return (
-		<div className="pt-2">
+		<div className="body">
 			{loading && (
 				<div className="row">
 					<div className="col-12 d-flex justify-content-center">
@@ -48,16 +48,16 @@ export const Dashboard = observer(() => {
 
 			{!loading && (
 				<>
+					{/* MARQUEE */}
 					<div className="marquee">
 						<p>
-							Hey look at me am a marqueeeeeeee!!!!!!!!!!!!!!!!!!!!!!!. Lorem
-							ipsum dolor sit amet consectetur adipisicing elit. Omnis accusamus
-							soluta, earum consequatur suscipit hic atque laudantium esse
-							veniam doloremque magnam. Fuga quasi perferendis cumque, placeat
-							ut sequi iste hic?
+							Welcome to Vital Events dashboard! Providing the Births and Death
+							statistics per District of the Republic of Uganda.
 						</p>
 					</div>
+
 					<div className="dashboard">
+						{/* SUMMARY CARDS */}
 						<div className="row">
 							<div className="col-md-3 mb-3">
 								<div className="card">
@@ -96,6 +96,7 @@ export const Dashboard = observer(() => {
 							</div>
 						</div>
 
+						{/* GRAPHS & MAP */}
 						<div className="row charts h-100">
 							<div className="col-md-12 mb-3 h-100">
 								<div className="row parent">
