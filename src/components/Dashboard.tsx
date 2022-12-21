@@ -32,7 +32,14 @@ export const Dashboard = observer(() => {
 	}, []);
 
 	return (
-		<div className="body" style={{ backgroundColor: "#F3F2EF" }}>
+		<div
+			className="container"
+			style={{
+				backgroundColor: "#F3F2EF",
+				height: "100vh",
+				overflow: "hidden",
+			}}
+		>
 			{loading && (
 				<div className="row">
 					<div className="col-12 d-flex justify-content-center">
