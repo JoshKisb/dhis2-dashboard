@@ -33,7 +33,7 @@ export const Dashboard = observer(() => {
 
 	return (
 		<div
-			className="container"
+			className="parent-container"
 			style={{
 				backgroundColor: "#F3F2EF",
 				height: "100vh",
