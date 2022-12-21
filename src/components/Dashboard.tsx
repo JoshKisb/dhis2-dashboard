@@ -39,8 +39,8 @@ export const Dashboard = observer(() => {
 				height: "100vh",
 				paddingLeft: "0px",
 				paddingRight: "0px",
-				marginLeft: "20px",
-				marginRight: "20px",
+				marginLeft: "15px",
+				marginRight: "15px",
 			}}
 		>
 			{loading && (
@@ -60,7 +60,7 @@ export const Dashboard = observer(() => {
 			{!loading && (
 				<>
 					{/* MARQUEE */}
-					<div className="marquee">
+					<div className="marquee no-padding">
 						<p>
 							Welcome to Vital Events dashboard! Providing the Births and Death
 							statistics per District of the Republic of Uganda.
@@ -69,7 +69,7 @@ export const Dashboard = observer(() => {
 
 					<div className="dashboard" style={{ backgroundColor: "#F3F2EF" }}>
 						{/* SUMMARY CARDS */}
-						<div className="row p-2">
+						<div className="row p-2 no-padding">
 							{Object.keys(indicatorMap).map((ky, index) => (
 								<div className="col-md-2" key={index}>
 									<div className="card" style={{ alignItems: "center" }}>
@@ -87,7 +87,7 @@ export const Dashboard = observer(() => {
 						</div>
 
 						{/* GRAPHS & MAP */}
-						<div className="row charts h-100">
+						<div className="graphs-map row charts h-100">
 							<div className="col-md-12 mb-3 h-100">
 								<div className="row parent">
 									<div className="card div1">
