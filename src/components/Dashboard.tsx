@@ -10,6 +10,7 @@ import { observer } from "mobx-react-lite";
 import { useStore } from "../stores";
 import { indicatorMap } from "../assets/indicators";
 // import map from "@highcharts/map-collection/custom/world.topo.json";
+import { startCase } from "lodash";
 
 highchartsMap(Highcharts);
 
@@ -68,7 +69,7 @@ export const Dashboard = observer(() => {
 													? store.yearsData[indicatorMap[ky]]
 													: "---"}
 											</h4>
-											{ky}
+											{startCase(ky)}
 										</div>
 									</div>
 								</div>
