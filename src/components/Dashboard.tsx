@@ -31,7 +31,7 @@ export const Dashboard = observer(() => {
 	}, []);
 
 	return (
-		<div className="body">
+		<div className="body" style={{ backgroundColor: "#F3F2EF" }}>
 			{loading && (
 				<div className="row">
 					<div className="col-12 d-flex justify-content-center">
@@ -58,42 +58,21 @@ export const Dashboard = observer(() => {
 
 					<div className="dashboard">
 						{/* SUMMARY CARDS */}
-						<div className="row">
-							<div className="col-md-3 mb-3">
-								<div className="card">
-									<div className="card-body">
-										<h4>{store.yearsData[indicatorMap.femaleBirths]}</h4>
-										Female Births
+						<div className="row p-2">
+							{Object.keys(indicatorMap).map((ky, index) => (
+								<div className="col-md-2 bg-white" key={index}>
+									<div className="card">
+										<div className="card-body">
+											<h4>
+												{store.yearsData[indicatorMap[ky]]
+													? store.yearsData[indicatorMap[ky]]
+													: "---"}
+											</h4>
+											{ky}
+										</div>
 									</div>
 								</div>
-							</div>
-
-							<div className="col-md-3 mb-3">
-								<div className="card">
-									<div className="card-body">
-										<h4>{store.yearsData[indicatorMap.maleBirths]}</h4>
-										Male Births
-									</div>
-								</div>
-							</div>
-
-							<div className="col-md-3 mb-3">
-								<div className="card">
-									<div className="card-body">
-										<h4>{store.yearsData[indicatorMap.femaleDeaths]}</h4>
-										Female Deaths
-									</div>
-								</div>
-							</div>
-
-							<div className="col-md-3 mb-3">
-								<div className="card">
-									<div className="card-body">
-										<h4>{store.yearsData[indicatorMap.maleDeaths]}</h4>
-										Male Deaths
-									</div>
-								</div>
-							</div>
+							))}
 						</div>
 
 						{/* GRAPHS & MAP */}
