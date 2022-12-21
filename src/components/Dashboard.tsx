@@ -58,11 +58,11 @@ export const Dashboard = observer(() => {
 
 					<div className="dashboard">
 						{/* SUMMARY CARDS */}
-						<div className="row p-2">
+						<div className="row p-2" style={{ backgroundColor: "#F3F2EF" }}>
 							{Object.keys(indicatorMap).map((ky, index) => (
 								<div className="col-md-2 bg-white" key={index}>
-									<div className="card">
-										<div className="card-body">
+									<div className="card" style={{ alignItems: "center" }}>
+										<div className="card-body" style={{ textAlign: "center" }}>
 											<h4>
 												{store.yearsData[indicatorMap[ky]]
 													? store.yearsData[indicatorMap[ky]]
