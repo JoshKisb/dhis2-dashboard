@@ -32,18 +32,14 @@ export class Store {
 	fetchBirthData = async () => {
 		const url =
 			"/api/38/analytics?dimension=dx:zkMVFHEPvzC;ihAAgZ8OjGE;Z64hUZUifEF,pe:2015;2016;2017;2018;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
-		const result = await this.engine.link
-			.fetch(url)
-			.catch((err: any) => err);
+		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
 
 	fetchDeathData = async () => {
 		const url =
 			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL,pe:2015;2016;2017;2018;2019;2020;2021;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
-		const result = await this.engine.link
-			.fetch(url)
-			.catch((err: any) => err);
+		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
 
@@ -57,9 +53,7 @@ export class Store {
 	// {dx1: {pe: value, pe: value}, dx2: {....
 	private processDataResults(results) {
 		const { headers, rows } = results;
-		const indexes = Object.fromEntries(
-			headers.map((h, idx) => [h.name, idx])
-		);
+		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
 		const data = {};
 
 		rows.forEach((row) => {
@@ -111,6 +105,9 @@ export class Store {
 	get lineChartData() {
 		return {
 			...defaultChartOptions,
+			title: {
+				text: "Births by gender",
+			},
 			plotOptions: {
 				series: {
 					label: {
@@ -118,23 +115,28 @@ export class Store {
 					},
 					pointStart: 2010,
 				},
+				series2: {
+					label: {
+						connectorAllowed: false,
+					},
+					pointStart: 2010,
+				},
 			},
-
 			series: [
 				{
 					name: "Births",
 					data: [
-						43934,
-						48656,
-						65165,
-						81827,
-						112143,
-						142383,
-						171533,
-						165174,
-						155157,
-						161454,
-						154610,
+						43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
+						161454, 154610,
+					],
+				},
+			],
+			series2: [
+				{
+					name: "Deaths",
+					data: [
+						53934, 58656, 75165, 89827, 122143, 152383, 181533, 175174, 165157,
+						171454, 144610,
 					],
 				},
 			],
@@ -145,15 +147,10 @@ export class Store {
 		return {
 			...defaultChartOptions,
 			chart: {
-				type: 'column'
-		  },
+				type: "column",
+			},
 			xAxis: {
-				categories: [
-					"Arsenal",
-					"Chelsea",
-					"Liverpool",
-					"Manchester United",
-				],
+				categories: ["Arsenal", "Chelsea", "Liverpool", "Manchester United"],
 			},
 			yAxis: {
 				min: 0,
@@ -187,8 +184,7 @@ export class Store {
 			},
 			tooltip: {
 				headerFormat: "<b>{point.x}</b><br/>",
-				pointFormat:
-					"{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+				pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
 			},
 			plotOptions: {
 				column: {
