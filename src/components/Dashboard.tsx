@@ -37,7 +37,10 @@ export const Dashboard = observer(() => {
 			style={{
 				backgroundColor: "#F3F2EF",
 				height: "100vh",
-				overflow: "hidden",
+				paddingLeft: "0px",
+				paddingRight: "0px",
+				marginLeft: "20px",
+				marginRight: "20px",
 			}}
 		>
 			{loading && (
@@ -64,11 +67,11 @@ export const Dashboard = observer(() => {
 						</p>
 					</div>
 
-					<div className="dashboard">
+					<div className="dashboard" style={{ backgroundColor: "#F3F2EF" }}>
 						{/* SUMMARY CARDS */}
-						<div className="row p-2" style={{ backgroundColor: "#F3F2EF" }}>
+						<div className="row p-2">
 							{Object.keys(indicatorMap).map((ky, index) => (
-								<div className="col-md-2 bg-white" key={index}>
+								<div className="col-md-2" key={index}>
 									<div className="card" style={{ alignItems: "center" }}>
 										<div className="card-body" style={{ textAlign: "center" }}>
 											<h4>

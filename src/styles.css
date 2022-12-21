@@ -16,7 +16,6 @@
 .dashboard {
 	display: flex;
 	flex-direction: column;
-	height: 100%;
 }
 .charts {
 	flex: 1;
