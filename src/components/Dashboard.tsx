@@ -1,3 +1,4 @@
+import React from "react";
 import { useEffect, useState } from "react";
 import Highcharts from "highcharts";
 import HighchartsReact from "highcharts-react-official";
@@ -47,127 +48,105 @@ export const Dashboard = observer(() => {
 
 			{!loading && (
 				<>
-				<div className="marquee">
-					<p>Hey look at me am a marqueeeeeeee!!!!!!!!!!!!!!!!!!!!!!!. Lorem ipsum dolor sit amet consectetur adipisicing elit. Omnis accusamus soluta, earum consequatur suscipit hic atque laudantium esse veniam doloremque magnam. Fuga quasi perferendis cumque, placeat ut sequi iste hic?</p>
-				</div>
-				<div className="dashboard">
-					<div className="row">
-						<div className="col-md-3 mb-3">
-							<div className="card">
-								<div className="card-body">
-									<h4>
-										{
-											store.yearsData[
-												indicatorMap.femaleBirths
-											]
-										}
-									</h4>
-									Female Births
-								</div>
-							</div>
-						</div>
-
-						<div className="col-md-3 mb-3">
-							<div className="card">
-								<div className="card-body">
-									<h4>
-										{
-											store.yearsData[
-												indicatorMap.maleBirths
-											]
-										}
-									</h4>
-									Male Births
-								</div>
-							</div>
-						</div>
-
-						<div className="col-md-3 mb-3">
-							<div className="card">
-								<div className="card-body">
-									<h4>
-										{
-											store.yearsData[
-												indicatorMap.femaleDeaths
-											]
-										}
-									</h4>
-									Female Deaths
-								</div>
-							</div>
-						</div>
-
-						<div className="col-md-3 mb-3">
-							<div className="card">
-								<div className="card-body">
-									<h4>
-										{
-											store.yearsData[
-												indicatorMap.maleDeaths
-											]
-										}
-									</h4>
-									Male Deaths
-								</div>
-							</div>
-						</div>
+					<div className="marquee">
+						<p>
+							Hey look at me am a marqueeeeeeee!!!!!!!!!!!!!!!!!!!!!!!. Lorem
+							ipsum dolor sit amet consectetur adipisicing elit. Omnis accusamus
+							soluta, earum consequatur suscipit hic atque laudantium esse
+							veniam doloremque magnam. Fuga quasi perferendis cumque, placeat
+							ut sequi iste hic?
+						</p>
 					</div>
-
-					<div className="row charts h-100">
-						<div className="col-md-12 mb-3 h-100">
-							<div className="row parent">
-								<div className="card div1">
+					<div className="dashboard">
+						<div className="row">
+							<div className="col-md-3 mb-3">
+								<div className="card">
 									<div className="card-body">
-										<HighchartsReact
-											highcharts={Highcharts}
-											options={store.lineChartData}
-										/>
+										<h4>{store.yearsData[indicatorMap.femaleBirths]}</h4>
+										Female Births
 									</div>
 								</div>
+							</div>
 
-								<div className="card div2">
+							<div className="col-md-3 mb-3">
+								<div className="card">
 									<div className="card-body">
-										<HighchartsReact
-											highcharts={Highcharts}
-											options={store.stackedChartData}
-										/>
+										<h4>{store.yearsData[indicatorMap.maleBirths]}</h4>
+										Male Births
 									</div>
 								</div>
+							</div>
 
-								<div className="card div3">
+							<div className="col-md-3 mb-3">
+								<div className="card">
 									<div className="card-body">
-										<HighchartsReact
-											highcharts={Highcharts}
-											options={
-												store.deathByGenderChartData
-											}
-										/>
+										<h4>{store.yearsData[indicatorMap.femaleDeaths]}</h4>
+										Female Deaths
 									</div>
 								</div>
+							</div>
 
-								<div className="card div4">
+							<div className="col-md-3 mb-3">
+								<div className="card">
 									<div className="card-body">
-										<HighchartsReact
-											highcharts={Highcharts}
-											options={
-												store.totalDeathsByGenderChartData
-											}
-										/>
-									</div>
-								</div>
-
-								<div className="card div5">
-									<div className="card-body">
-										<HighchartsReact
-											highcharts={Highcharts}
-											constructorType={"mapChart"}
-											options={store.mapChartOptions}
-										/>
+										<h4>{store.yearsData[indicatorMap.maleDeaths]}</h4>
+										Male Deaths
 									</div>
 								</div>
 							</div>
 						</div>
-					</div>
+
+						<div className="row charts h-100">
+							<div className="col-md-12 mb-3 h-100">
+								<div className="row parent">
+									<div className="card div1">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												options={store.lineChartData}
+											/>
+										</div>
+									</div>
+
+									<div className="card div2">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												options={store.stackedChartData}
+											/>
+										</div>
+									</div>
+
+									<div className="card div3">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												options={store.deathByGenderChartData}
+											/>
+										</div>
+									</div>
+
+									<div className="card div4">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												options={store.totalDeathsByGenderChartData}
+											/>
+										</div>
+									</div>
+
+									<div className="card div5">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												constructorType={"mapChart"}
+												options={store.mapChartOptions}
+											/>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
 					</div>
 				</>
 			)}
