@@ -87,17 +87,12 @@ export const Dashboard = observer(() => {
 							{Object.keys(indicatorMap).map((ky, index) => (
 								<div className={`summary-card-${index + 1}`} key={index}>
 									<div className="card" style={{ alignItems: "center" }}>
-										<div
-											className="card-body"
-											style={{ textAlign: "center", width: "100%" }}
-										>
-											<span style={{ width: "100%" }}>
-												{store.yearsData[indicatorMap[ky]]
-													? store.yearsData[indicatorMap[ky]]
-													: "---"}
-											</span>
-											{startCase(ky)}
-										</div>
+										<span style={{ width: "100%" }}>
+											{store.yearsData[indicatorMap[ky]]
+												? store.yearsData[indicatorMap[ky]]
+												: "---"}
+										</span>
+										{startCase(ky)}
 									</div>
 								</div>
 							))}
@@ -130,6 +125,7 @@ export const Dashboard = observer(() => {
 								<div className="card grid-elem grid-item-2">
 									<div className="card-body">
 										<HighchartsReact
+											containerProps={{ style: { height: "100%" } }}
 											highcharts={Highcharts}
 											options={store.totalDeathsByGenderChartData}
 										/>
@@ -141,6 +137,7 @@ export const Dashboard = observer(() => {
 								<div className="card grid-elem grid-item-3">
 									<div className="card-body">
 										<HighchartsReact
+											containerProps={{ style: { height: "100%" } }}
 											highcharts={Highcharts}
 											options={store.stackedChartData}
 										/>
@@ -151,11 +148,13 @@ export const Dashboard = observer(() => {
 									<div className="card-body">
 										{showElement ? (
 											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
 												highcharts={Highcharts}
 												options={store.birthByGenderChartData}
 											/>
 										) : (
 											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
 												highcharts={Highcharts}
 												options={store.deathByGenderChartData}
 											/>
