@@ -92,15 +92,15 @@ export const Dashboard = observer(() => {
 										display: "flex",
 										alignItems: "center",
 										border: "1px solid rgba(0,0,0,.175)",
+										flexDirection: "column",
 										borderRadius: "0.375rem",
+										paddingTop: "1%",
 									}}
 								>
 									<span
 										style={{
 											width: "100%",
 											fontWeight: "800",
-											flexDirection: "column",
-											paddingTop: "1%",
 										}}
 									>
 										{store.yearsData[indicatorMap[ky]]
