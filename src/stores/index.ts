@@ -116,6 +116,14 @@ export class Store {
 					},
 				},
 			},
+			yAxis: {
+				title: {
+					text: "Numbers of babies",
+				},
+			},
+			xAxis: {
+				categories: ["2018", "2019", "2020", "2021", "2022"],
+			},
 			series: [
 				{
 					name: "Male",
@@ -148,6 +156,14 @@ export class Store {
 						connectorAllowed: false,
 					},
 				},
+			},
+			yAxis: {
+				title: {
+					text: "Numbers of babies",
+				},
+			},
+			xAxis: {
+				categories: ["2018", "2019", "2020", "2021", "2022"],
 			},
 			series: [
 				{
