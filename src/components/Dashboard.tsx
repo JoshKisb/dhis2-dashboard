@@ -88,15 +88,26 @@ export const Dashboard = observer(() => {
 								<div
 									className={`summary-card-${index + 1}`}
 									key={index}
-									style={{ display: "flex", alignItems: "center" }}
+									style={{
+										display: "flex",
+										alignItems: "center",
+										border: "1px solid rgba(0,0,0,.175)",
+										borderRadius: "0.375rem",
+									}}
 								>
-									<span style={{ width: "100%", fontWeight: "800" }}>
+									<span
+										style={{
+											width: "100%",
+											fontWeight: "800",
+											flexDirection: "column",
+											paddingTop: "1%",
+										}}
+									>
 										{store.yearsData[indicatorMap[ky]]
 											? store.yearsData[indicatorMap[ky]]
 											: "---"}
 									</span>
-									<br />
-									{startCase(ky)}
+									<span>{startCase(ky)}</span>
 								</div>
 							))}
 						</div>

@@ -1,21 +1,19 @@
-
 export const indicatorMap = {
-   totalDeaths: "vU8Ofttev65",
-   femaleDeaths: "JDygTkWCxQU",
-   maleDeaths: "CFMGxtTBf6m",
-   totalBirths: "Z64hUZUifEF",
-   femaleBirths: "zkMVFHEPvzC",
-   maleBirths: "ihAAgZ8OjGE",
-}
-
-
+	totalDeaths: "vU8Ofttev65",
+	femaleDeaths: "JDygTkWCxQU",
+	maleDeaths: "CFMGxtTBf6m",
+	totalBirths: "Z64hUZUifEF",
+	femaleBirths: "zkMVFHEPvzC",
+	maleBirths: "ihAAgZ8OjGE",
+	totalCertified: "ihAAgZ8OjGE",
+};
 
 // just for reference
 
 interface IndicatorInterface {
-   id: string;
-   displayName: string;
-};
+	id: string;
+	displayName: string;
+}
 const programIndicators: IndicatorInterface[] = [
 	{
 		id: "T6TTjdahYxL",
