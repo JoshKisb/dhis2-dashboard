@@ -110,17 +110,26 @@ export const Dashboard = observer(() => {
 							<div className="grid-elem-upper">
 								<div className="card grid-elem grid-item-1">
 									<div className="card-body">
-										{showElement ? (
-											<HighchartsReact
-												highcharts={Highcharts}
-												options={store.lineChartDeathData}
-											/>
-										) : (
-											<HighchartsReact
-												highcharts={Highcharts}
-												options={store.lineChartBirthData}
-											/>
-										)}
+										<div
+											id="container"
+											style={{
+												width: "100%",
+												height: "100%",
+												position: "absolute",
+											}}
+										>
+											{showElement ? (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.lineChartDeathData}
+												/>
+											) : (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.lineChartBirthData}
+												/>
+											)}
+										</div>
 									</div>
 								</div>
 
