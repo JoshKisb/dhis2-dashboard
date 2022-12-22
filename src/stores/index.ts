@@ -102,7 +102,8 @@ export class Store {
 		return data;
 	}
 
-	get lineChartData() {
+	// LINE-GRAPHS
+	get lineChartBirthData() {
 		return {
 			...defaultChartOptions,
 			title: {
@@ -135,6 +136,40 @@ export class Store {
 		};
 	}
 
+	get lineChartDeathData() {
+		return {
+			...defaultChartOptions,
+			title: {
+				text: "Deaths by gender",
+			},
+			plotOptions: {
+				series: {
+					label: {
+						connectorAllowed: false,
+					},
+				},
+			},
+			series: [
+				{
+					name: "Male",
+					data: [500, 300, 200, 600, 610],
+					color: "blue",
+				},
+				{
+					name: "Female",
+					data: [800, 480, 100, 300, 410],
+					color: "pink",
+				},
+				{
+					name: "Total",
+					data: [800 + 700, 480 + 300, 100 + 200, 300 + 600, 410 + 610],
+					color: "yellow",
+				},
+			],
+		};
+	}
+
+	// STACKED GRAPH
 	get stackedChartData() {
 		return {
 			...defaultChartOptions,
