@@ -25,6 +25,14 @@ export const Dashboard = observer(() => {
 			setShowElement(false);
 		}, 5000);
 	}, []);
+	
+	function toggleFullScreen(){
+      if (!document.fullscreenElement) {
+        document.body.requestFullscreen();
+      } else {
+        document.exitFullscreen();
+      }
+    }
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -157,8 +165,12 @@ export const Dashboard = observer(() => {
 									options={store.mapChartOptions}
 								/>
 							</div>
+							<button onClick={toggleFullScreen}
+						        style={{position: "absolute", right:"0", verticalAlign:"bottom"}}
+						    >
+						        []
+						    </button>
 						</div>
-
 					</div>
 				</>
 			)}
