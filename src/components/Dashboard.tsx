@@ -86,14 +86,12 @@ export const Dashboard = observer(() => {
 						<div className="header-summary-divs-container">
 							{Object.keys(indicatorMap).map((ky, index) => (
 								<div className={`summary-card-${index + 1}`} key={index}>
-									<div className="card" style={{ alignItems: "center" }}>
-										<span style={{ width: "100%" }}>
-											{store.yearsData[indicatorMap[ky]]
-												? store.yearsData[indicatorMap[ky]]
-												: "---"}
-										</span>
-										{startCase(ky)}
-									</div>
+									<span style={{ width: "100%" }}>
+										{store.yearsData[indicatorMap[ky]]
+											? store.yearsData[indicatorMap[ky]]
+											: "---"}
+									</span>
+									{startCase(ky)}
 								</div>
 							))}
 						</div>
@@ -168,6 +166,7 @@ export const Dashboard = observer(() => {
 						<div className="card map-container">
 							<div className="card-body">
 								<HighchartsReact
+									containerProps={{ style: { height: "100%" } }}
 									highcharts={Highcharts}
 									constructorType={"mapChart"}
 									options={store.mapChartOptions}
