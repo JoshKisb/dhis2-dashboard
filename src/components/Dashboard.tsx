@@ -98,7 +98,7 @@ export const Dashboard = observer(() => {
 						<div className="graphs-map row charts h-100">
 							<div className="col-md-12 mb-3 h-100">
 								<div className="row parent">
-									{/* BIRTH & DEATH LINE-GRAPHS */}
+									{/* LINE-GRAPHS - BIRTH & DEATH  */}
 									<div className="card div1">
 										<div className="card-body">
 											{showElement ? (
@@ -115,24 +115,7 @@ export const Dashboard = observer(() => {
 										</div>
 									</div>
 
-									<div className="card div2">
-										<div className="card-body">
-											<HighchartsReact
-												highcharts={Highcharts}
-												options={store.stackedChartData}
-											/>
-										</div>
-									</div>
-
-									<div className="card div3">
-										<div className="card-body">
-											<HighchartsReact
-												highcharts={Highcharts}
-												options={store.deathByGenderChartData}
-											/>
-										</div>
-									</div>
-
+									{/* HIGH/COLUMN - BIRTH & DEATH*/}
 									<div className="card div4">
 										<div className="card-body">
 											<HighchartsReact
@@ -142,6 +125,34 @@ export const Dashboard = observer(() => {
 										</div>
 									</div>
 
+									{/* STACKED CHART - BIRTH & DEATH  */}
+									<div className="card div2">
+										<div className="card-body">
+											<HighchartsReact
+												highcharts={Highcharts}
+												options={store.stackedChartData}
+											/>
+										</div>
+									</div>
+
+									{/* PIE CHART - BIRTH & DEATH  */}
+									<div className="card div3">
+										<div className="card-body">
+											{showElement ? (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.deathByGenderChartData}
+												/>
+											) : (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.birthByGenderChartData}
+												/>
+											)}
+										</div>
+									</div>
+
+									{/* MAP */}
 									<div className="card div5">
 										<div className="card-body">
 											<HighchartsReact

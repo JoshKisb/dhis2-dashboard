@@ -290,6 +290,72 @@ export class Store {
 		};
 	}
 
+	// PIE-CHART
+	get birthByGenderChartData() {
+		const femaleBirths = this.data[indicatorMap.femaleBirths];
+		const maleBirths = this.data[indicatorMap.maleBirths];
+		const totalFemaleBirths = Object.values(femaleBirths).reduce(
+			(acc: number, value: any) => acc + parseFloat(value),
+			0
+		);
+		const totalMaleBirths = Object.values(maleBirths).reduce(
+			(acc: number, value: any) => acc + parseFloat(value),
+			0
+		);
+		const total = totalFemaleBirths + totalMaleBirths;
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				plotBackgroundColor: null,
+				plotBorderWidth: null,
+				plotShadow: false,
+				type: "pie",
+			},
+			title: {
+				text: "Birth by gender",
+			},
+			tooltip: {
+				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
+			},
+			accessibility: {
+				point: {
+					valueSuffix: "%",
+				},
+			},
+			plotOptions: {
+				pie: {
+					allowPointSelect: true,
+					cursor: "pointer",
+					dataLabels: {
+						enabled: true,
+						format: "<b>{point.name}</b>: {point.percentage:.1f} %",
+					},
+				},
+			},
+			series: [
+				{
+					name: "Births",
+					colorByPoint: true,
+					data: [
+						{
+							name: "Female",
+							y: (totalFemaleBirths / total) * 100,
+							sliced: true,
+							selected: true,
+							color: "#2C6693",
+						},
+						{
+							name: "Male",
+							y: (totalMaleBirths / total) * 100,
+							color: "#118347",
+						},
+					],
+				},
+			],
+		};
+	}
+
 	get deathByGenderChartData() {
 		const femaleDeaths = this.data[indicatorMap.femaleDeaths];
 		const maleDeaths = this.data[indicatorMap.maleDeaths];
@@ -342,10 +408,12 @@ export class Store {
 							y: (totalFemaleDeaths / total) * 100,
 							sliced: true,
 							selected: true,
+							color: "#F9E640",
 						},
 						{
 							name: "Male",
 							y: (totalMaleDeaths / total) * 100,
+							color: "#980C71",
 						},
 					],
 				},
@@ -353,6 +421,7 @@ export class Store {
 		};
 	}
 
+	// MAP
 	get mapChartOptions() {
 		return {
 			credits: {
