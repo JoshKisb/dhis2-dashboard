@@ -14,17 +14,17 @@ import { startCase } from "lodash";
 
 highchartsMap(Highcharts);
 
-// Alter graphs
-const [showElement, setShowElement] = useState(true);
-useEffect(() => {
-	setTimeout(function () {
-		setShowElement(false);
-	}, 5000);
-}, []);
-
 export const Dashboard = observer(() => {
 	const [loading, setLoading] = useState(true);
 	const store = useStore();
+
+	// Alter graphs
+	const [showElement, setShowElement] = useState(true);
+	useEffect(() => {
+		setTimeout(function () {
+			setShowElement(false);
+		}, 5000);
+	}, []);
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
