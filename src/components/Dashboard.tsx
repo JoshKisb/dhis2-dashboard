@@ -104,12 +104,12 @@ export const Dashboard = observer(() => {
 											{showElement ? (
 												<HighchartsReact
 													highcharts={Highcharts}
-													options={store.lineChartBirthData}
+													options={store.lineChartDeathData}
 												/>
 											) : (
 												<HighchartsReact
 													highcharts={Highcharts}
-													options={store.lineChartDeathData}
+													options={store.lineChartBirthData}
 												/>
 											)}
 										</div>
