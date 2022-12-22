@@ -193,7 +193,7 @@ export class Store {
 				type: "column",
 			},
 			xAxis: {
-				categories: ["Arsenal", "Chelsea", "Liverpool", "Manchester United"],
+				categories: ["2018", "2019", "2020", "2021"],
 			},
 			yAxis: {
 				min: 0,
