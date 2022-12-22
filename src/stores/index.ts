@@ -108,10 +108,6 @@ export class Store {
 			...defaultChartOptions,
 			chart: {
 				type: "line",
-				style: {
-					height: "100%",
-					width: "100%",
-				},
 			},
 			title: {
 				text: "Births by gender",
@@ -156,10 +152,6 @@ export class Store {
 			...defaultChartOptions,
 			chart: {
 				type: "line",
-				style: {
-					height: "100%",
-					width: "100%",
-				},
 			},
 			title: {
 				text: "Deaths by gender",

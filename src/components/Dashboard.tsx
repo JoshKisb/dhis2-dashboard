@@ -104,32 +104,26 @@ export const Dashboard = observer(() => {
 						</div>
 					</div>
 
-					{/* GRAPHS */}
+					{/* GRAPHS & MAP */}
 					<div className={`main-div`}>
+						{/* GRAPHS CONTAINER */}
 						<div className="graphs-container">
 							<div className="grid-elem-upper">
 								<div className="card grid-elem grid-item-1">
 									<div className="card-body">
-										<div
-											id="container"
-											style={{
-												width: "100%",
-												height: "100%",
-												position: "absolute",
-											}}
-										>
-											{showElement ? (
-												<HighchartsReact
-													highcharts={Highcharts}
-													options={store.lineChartDeathData}
-												/>
-											) : (
-												<HighchartsReact
-													highcharts={Highcharts}
-													options={store.lineChartBirthData}
-												/>
-											)}
-										</div>
+										{showElement ? (
+											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.lineChartDeathData}
+											/>
+										) : (
+											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.lineChartBirthData}
+											/>
+										)}
 									</div>
 								</div>
 
@@ -171,6 +165,7 @@ export const Dashboard = observer(() => {
 							</div>
 						</div>
 
+						{/* MAP CONTAINER */}
 						<div className="card map-container">
 							<div className="card-body">
 								<HighchartsReact
