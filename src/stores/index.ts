@@ -113,31 +113,23 @@ export class Store {
 					label: {
 						connectorAllowed: false,
 					},
-					pointStart: 2010,
-				},
-				series2: {
-					label: {
-						connectorAllowed: false,
-					},
-					pointStart: 2010,
 				},
 			},
 			series: [
 				{
-					name: "Births",
-					data: [
-						43934, 48656, 65165, 81827, 112143, 142383, 171533, 165174, 155157,
-						161454, 154610,
-					],
+					name: "Male",
+					data: [600, 400, 300, 700, 710],
+					color: "red",
 				},
-			],
-			series2: [
 				{
-					name: "Deaths",
-					data: [
-						53934, 58656, 75165, 89827, 122143, 152383, 181533, 175174, 165157,
-						171454, 144610,
-					],
+					name: "Female",
+					data: [900, 580, 200, 400, 510],
+					color: "blue",
+				},
+				{
+					name: "Total",
+					data: [900 + 600, 580 + 400, 200 + 300, 400 + 700, 510 + 710],
+					color: "green",
 				},
 			],
 		};
