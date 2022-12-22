@@ -25,14 +25,14 @@ export const Dashboard = observer(() => {
 			setShowElement(false);
 		}, 5000);
 	}, []);
-	
-	function toggleFullScreen(){
-      if (!document.fullscreenElement) {
-        document.body.requestFullscreen();
-      } else {
-        document.exitFullscreen();
-      }
-    }
+
+	function toggleFullScreen() {
+		if (!document.fullscreenElement) {
+			document.body.requestFullscreen();
+		} else {
+			document.exitFullscreen();
+		}
+	}
 
 	useEffect(() => {
 		if (typeof window !== "undefined") {
@@ -53,7 +53,7 @@ export const Dashboard = observer(() => {
 			style={{
 				backgroundColor: "#F3F2EF",
 				width: "100vw",
-                height: "100vh",
+				height: "100vh",
 				paddingLeft: "0px",
 				paddingRight: "0px",
 			}}
@@ -74,20 +74,23 @@ export const Dashboard = observer(() => {
 
 			{!loading && (
 				<>
-					 <div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
-					     <div className="marquee no-padding header-slider">
-						    <p>
-							    Welcome to Vital Events dashboard! Providing the Births and Death
-							    statistics per District of the Republic of Uganda.
-						    </p>
-					     </div>
-						 {/* SUMMARY CARDS */}
-						 <div className="header-summary-divs-container">
+					<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
+						<div className="marquee no-padding header-slider">
+							<p>
+								Welcome to Vital Events dashboard! Providing the Births and
+								Death statistics per District of the Republic of Uganda.
+							</p>
+						</div>
+						{/* SUMMARY CARDS */}
+						<div className="header-summary-divs-container">
 							{Object.keys(indicatorMap).map((ky, index) => (
-								<div className={`summary-card-${index+1}`} key={index}>
-									<div className="card" style={{ alignItems: "center"}}>
-										<div className="card-body" style={{ textAlign: "center" }}>
-											<span style={{width: "100%"}}>
+								<div className={`summary-card-${index + 1}`} key={index}>
+									<div className="card" style={{ alignItems: "center" }}>
+										<div
+											className="card-body"
+											style={{ textAlign: "center", width: "100%" }}
+										>
+											<span style={{ width: "100%" }}>
 												{store.yearsData[indicatorMap[ky]]
 													? store.yearsData[indicatorMap[ky]]
 													: "---"}
@@ -97,11 +100,11 @@ export const Dashboard = observer(() => {
 									</div>
 								</div>
 							))}
-						 </div>
+						</div>
 					</div>
 
 					<div className={`main-div`}>
-						<div className="row parent graphs-container">
+						<div className="graphs-container">
 							<div className="grid-elem-upper">
 								<div className="card grid-elem grid-item-1">
 									<div className="card-body">
@@ -156,7 +159,7 @@ export const Dashboard = observer(() => {
 								</div>
 							</div>
 						</div>
-						
+
 						<div className="card map-container">
 							<div className="card-body">
 								<HighchartsReact
@@ -165,11 +168,16 @@ export const Dashboard = observer(() => {
 									options={store.mapChartOptions}
 								/>
 							</div>
-							<button onClick={toggleFullScreen}
-						        style={{position: "absolute", right:"0", verticalAlign:"bottom"}}
-						    >
-						        []
-						    </button>
+							<button
+								onClick={toggleFullScreen}
+								style={{
+									position: "absolute",
+									right: "0",
+									verticalAlign: "bottom",
+								}}
+							>
+								[]
+							</button>
 						</div>
 					</div>
 				</>
