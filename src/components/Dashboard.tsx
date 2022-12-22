@@ -49,7 +49,7 @@ export const Dashboard = observer(() => {
 
 	return (
 		<div
-			className="parent-container page"
+			className="page"
 			style={{
 				backgroundColor: "#F3F2EF",
 				width: "100vw",
@@ -81,6 +81,7 @@ export const Dashboard = observer(() => {
 								Death statistics per District of the Republic of Uganda.
 							</p>
 						</div>
+
 						{/* SUMMARY CARDS */}
 						<div className="header-summary-divs-container">
 							{Object.keys(indicatorMap).map((ky, index) => (
@@ -103,6 +104,7 @@ export const Dashboard = observer(() => {
 						</div>
 					</div>
 
+					{/* GRAPHS */}
 					<div className={`main-div`}>
 						<div className="graphs-container">
 							<div className="grid-elem-upper">
