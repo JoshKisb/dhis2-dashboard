@@ -14,6 +14,14 @@ import { startCase } from "lodash";
 
 highchartsMap(Highcharts);
 
+// Alter graphs
+const [showElement, setShowElement] = useState(true);
+useEffect(() => {
+	setTimeout(function () {
+		setShowElement(false);
+	}, 5000);
+}, []);
+
 export const Dashboard = observer(() => {
 	const [loading, setLoading] = useState(true);
 	const store = useStore();
@@ -90,12 +98,20 @@ export const Dashboard = observer(() => {
 						<div className="graphs-map row charts h-100">
 							<div className="col-md-12 mb-3 h-100">
 								<div className="row parent">
+									{/* BIRTH & DEATH LINE-GRAPHS */}
 									<div className="card div1">
 										<div className="card-body">
-											<HighchartsReact
-												highcharts={Highcharts}
-												options={store.lineChartData}
-											/>
+											{showElement ? (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.lineChartBirthData}
+												/>
+											) : (
+												<HighchartsReact
+													highcharts={Highcharts}
+													options={store.lineChartDeathData}
+												/>
+											)}
 										</div>
 									</div>
 
