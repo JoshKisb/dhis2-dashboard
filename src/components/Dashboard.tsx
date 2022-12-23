@@ -86,13 +86,13 @@ export const Dashboard = observer(() => {
 							{Object.keys(indicatorMap).map((ky, index) => (
 								<div className={`summary-card-${index+1}`} key={index}>
 									<div className="card" style={{ alignItems: "center"}}>
-										<div className="card-body" style={{ textAlign: "center" }}>
+										<div className="card-body" style={{ textAlign: "center", paddingTop: 0 }}>
 											<span style={{width: "100%"}}>
 												{store.yearsData[indicatorMap[ky]]
 													? store.yearsData[indicatorMap[ky]]
 													: "---"}
 											</span>
-											{startCase(ky)}
+											<span><small> {startCase(ky)} </small></span>
 										</div>
 									</div>
 								</div>
