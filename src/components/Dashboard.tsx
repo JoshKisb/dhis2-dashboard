@@ -168,7 +168,7 @@ export const Dashboard = observer(() => {
 							<button onClick={toggleFullScreen}
 						        style={{position: "absolute", right:"0", verticalAlign:"bottom"}}
 						    >
-						        []
+						        [ ]
 						    </button>
 						</div>
 					</div>
