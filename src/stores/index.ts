@@ -106,6 +106,9 @@ export class Store {
 	get lineChartBirthData() {
 		return {
 			...defaultChartOptions,
+			chart: {
+				type: "line",
+			},
 			title: {
 				text: "Births by gender",
 			},
@@ -147,6 +150,9 @@ export class Store {
 	get lineChartDeathData() {
 		return {
 			...defaultChartOptions,
+			chart: {
+				type: "line",
+			},
 			title: {
 				text: "Deaths by gender",
 			},
