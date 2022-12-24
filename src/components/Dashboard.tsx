@@ -118,6 +118,7 @@ export const Dashboard = observer(() => {
 						{/* GRAPHS CONTAINER */}
 						<div className="graphs-container">
 							<div className="grid-elem-upper">
+								{/* LINE-GRAPH */}
 								<div className="card grid-elem grid-item-1">
 									<div className="card-body">
 										{showElement ? (
@@ -136,17 +137,27 @@ export const Dashboard = observer(() => {
 									</div>
 								</div>
 
+								{/* COLUMN CHART */}
 								<div className="card grid-elem grid-item-2">
 									<div className="card-body">
-										<HighchartsReact
-											containerProps={{ style: { height: "100%" } }}
-											highcharts={Highcharts}
-											options={store.totalDeathsByGenderChartData}
-										/>
+										{showElement ? (
+											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.totalDeathsByGenderChartData}
+											/>
+										) : (
+											<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.totalBirthsByGenderChartData}
+											/>
+										)}
 									</div>
 								</div>
 							</div>
 
+							{/* STACKED-CHART */}
 							<div className="grid-elem-lower">
 								<div className="card grid-elem grid-item-3">
 									<div className="card-body">
@@ -158,6 +169,7 @@ export const Dashboard = observer(() => {
 									</div>
 								</div>
 
+								{/* PIE-CHART */}
 								<div className="card grid-elem grid-item-4">
 									<div className="card-body">
 										{showElement ? (

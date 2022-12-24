@@ -260,6 +260,7 @@ export class Store {
 		};
 	}
 
+	// COLUMN BAR
 	get totalDeathsByGenderChartData() {
 		const femaleDeaths = this.data[indicatorMap.femaleDeaths];
 		const maleDeaths = this.data[indicatorMap.maleDeaths];
@@ -279,6 +280,11 @@ export class Store {
 				categories: periods,
 				crosshair: true,
 			},
+			yAxis: {
+				title: {
+					text: "Death rate per thousand population",
+				},
+			},
 			series: [
 				{
 					name: "Male Deaths",
@@ -291,6 +297,50 @@ export class Store {
 				{
 					name: "Total Deaths",
 					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
+				},
+			],
+		};
+	}
+
+	get totalBirthsByGenderChartData() {
+		const femaleBirths = this.data[indicatorMap.femaleBirths];
+		const maleBirths = this.data[indicatorMap.maleBirths];
+		const totalBirths = this.data[indicatorMap.totalBirths];
+
+		const periods = Object.keys(maleBirths);
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "column",
+			},
+			title: {
+				text: "Births by Gender",
+			},
+			xAxis: {
+				categories: periods,
+				crosshair: true,
+			},
+			yAxis: {
+				title: {
+					text: "Birth rate per thousand population",
+				},
+			},
+			series: [
+				{
+					name: "Male Births",
+					data: periods.map((pe) => parseFloat(maleBirths[pe])),
+					color: "#EA1314",
+				},
+				{
+					name: "Female Births",
+					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
+					color: "#1735F1",
+				},
+				{
+					name: "Total Births",
+					data: periods.map((pe) => parseFloat(totalBirths[pe])),
+					color: "#118347",
 				},
 			],
 		};
