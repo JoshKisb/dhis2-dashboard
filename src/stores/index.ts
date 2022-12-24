@@ -191,76 +191,51 @@ export class Store {
 		};
 	}
 
-	// STACKED GRAPH
-	get stackedChartData() {
+	// COLUMN BAR
+	get totalBirthsByGenderChartData() {
+		const femaleBirths = this.data[indicatorMap.femaleBirths];
+		const maleBirths = this.data[indicatorMap.maleBirths];
+		const totalBirths = this.data[indicatorMap.totalBirths];
+
+		const periods = Object.keys(maleBirths);
+
 		return {
 			...defaultChartOptions,
 			chart: {
 				type: "column",
 			},
+			title: {
+				text: "Births by Gender",
+			},
 			xAxis: {
-				categories: ["2018", "2019", "2020", "2021"],
+				categories: periods,
+				crosshair: true,
 			},
 			yAxis: {
-				min: 0,
 				title: {
-					text: "Count trophies",
-				},
-				stackLabels: {
-					enabled: true,
-					style: {
-						fontWeight: "bold",
-						color:
-							// theme
-							(Highcharts.defaultOptions.title.style &&
-								Highcharts.defaultOptions.title.style.color) ||
-							"gray",
-						textOutline: "none",
-					},
-				},
-			},
-			legend: {
-				align: "left",
-				x: 70,
-				verticalAlign: "top",
-				y: 70,
-				floating: true,
-				backgroundColor:
-					Highcharts.defaultOptions.legend.backgroundColor || "white",
-				borderColor: "#CCC",
-				borderWidth: 1,
-				shadow: false,
-			},
-			tooltip: {
-				headerFormat: "<b>{point.x}</b><br/>",
-				pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
-			},
-			plotOptions: {
-				column: {
-					stacking: "normal",
-					dataLabels: {
-						enabled: true,
-					},
+					text: "Numbers in thousands",
 				},
 			},
 			series: [
 				{
-					name: "BPL",
-					data: [3, 5, 1, 13],
+					name: "Male",
+					data: periods.map((pe) => parseFloat(maleBirths[pe])),
+					color: "#EA1314",
 				},
 				{
-					name: "FA Cup",
-					data: [14, 8, 8, 12],
+					name: "Female",
+					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
+					color: "#1735F1",
 				},
 				{
-					name: "CL",
-					data: [0, 2, 6, 3],
+					name: "Totals",
+					data: periods.map((pe) => parseFloat(totalBirths[pe])),
+					color: "#118347",
 				},
 			],
 		};
 	}
 
-	// COLUMN BAR
 	get totalDeathsByGenderChartData() {
 		const femaleDeaths = this.data[indicatorMap.femaleDeaths];
 		const maleDeaths = this.data[indicatorMap.maleDeaths];
@@ -302,45 +277,134 @@ export class Store {
 		};
 	}
 
-	get totalBirthsByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths];
-		const maleBirths = this.data[indicatorMap.maleBirths];
-		const totalBirths = this.data[indicatorMap.totalBirths];
-
-		const periods = Object.keys(maleBirths);
-
+	// STACKED GRAPH
+	get totalBirthStackedChartData() {
 		return {
 			...defaultChartOptions,
 			chart: {
 				type: "column",
 			},
-			title: {
-				text: "Births by Gender",
-			},
 			xAxis: {
-				categories: periods,
-				crosshair: true,
+				categories: ["2018", "2019", "2020", "2021"],
 			},
 			yAxis: {
+				min: 0,
 				title: {
-					text: "Numbers in thousands",
+					text: "Numbers in ten-thousands",
+				},
+				stackLabels: {
+					enabled: true,
+					style: {
+						fontWeight: "bold",
+						color:
+							// theme
+							(Highcharts.defaultOptions.title.style &&
+								Highcharts.defaultOptions.title.style.color) ||
+							"gray",
+						textOutline: "none",
+					},
+				},
+			},
+			legend: {
+				align: "left",
+				x: 70,
+				verticalAlign: "top",
+				y: 70,
+				floating: true,
+				backgroundColor:
+					Highcharts.defaultOptions.legend.backgroundColor || "white",
+				borderColor: "#CCC",
+				borderWidth: 1,
+				shadow: false,
+			},
+			tooltip: {
+				headerFormat: "<b>{point.x}</b><br/>",
+				pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+			},
+			plotOptions: {
+				column: {
+					stacking: "normal",
+					dataLabels: {
+						enabled: true,
+					},
 				},
 			},
 			series: [
 				{
 					name: "Male",
-					data: periods.map((pe) => parseFloat(maleBirths[pe])),
-					color: "#EA1314",
+					data: [6, 4, 3, 7, 7],
+					color: "red",
 				},
 				{
 					name: "Female",
-					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
-					color: "#1735F1",
+					data: [9, 5, 2, 4, 5],
+					color: "blue",
+				},
+			],
+		};
+	}
+
+	get totalDeathStackedChartData() {
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "column",
+			},
+			xAxis: {
+				categories: ["2018", "2019", "2020", "2021"],
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: "Numbers in ten-thousands",
+				},
+				stackLabels: {
+					enabled: true,
+					style: {
+						fontWeight: "bold",
+						color:
+							// theme
+							(Highcharts.defaultOptions.title.style &&
+								Highcharts.defaultOptions.title.style.color) ||
+							"gray",
+						textOutline: "none",
+					},
+				},
+			},
+			legend: {
+				align: "left",
+				x: 70,
+				verticalAlign: "top",
+				y: 70,
+				floating: true,
+				backgroundColor:
+					Highcharts.defaultOptions.legend.backgroundColor || "white",
+				borderColor: "#CCC",
+				borderWidth: 1,
+				shadow: false,
+			},
+			tooltip: {
+				headerFormat: "<b>{point.x}</b><br/>",
+				pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+			},
+			plotOptions: {
+				column: {
+					stacking: "normal",
+					dataLabels: {
+						enabled: true,
+					},
+				},
+			},
+			series: [
+				{
+					name: "Male",
+					data: [5, 3, 2, 6, 6],
+					color: "blue",
 				},
 				{
-					name: "Totals",
-					data: periods.map((pe) => parseFloat(totalBirths[pe])),
-					color: "#118347",
+					name: "Female",
+					data: [8, 4, 1, 3, 4],
+					color: "pink",
 				},
 			],
 		};
