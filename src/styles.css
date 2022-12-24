@@ -97,6 +97,7 @@
              height: 100vh;
              align-items: top;
              overflow: hidden;
+             padding: 0;
          }
          .header-div {
             position: relative;
@@ -143,8 +144,8 @@
             display: flex;
          }
          .grid-elem {
-             height:96%;
-             width: 47.5%;
+             height:99%;
+             width: 49.5%;
              background-color: white;
              text-align: center;
              padding: 0.2%;
@@ -154,7 +155,7 @@
          .grid-item-3 { margin: 0.5% 0.5% 0.5% 0; }
          .grid-item-4 { margin: 0.5% 0 0.5% 0.5%; }
          .map-container {
-            height:96%;
+            height:98%;
             width: 32%;
             padding: 0;
             background-color: white;
