@@ -26,8 +26,8 @@ export const Dashboard = observer(() => {
 	// Alter graphs
 	const [showElement, setShowElement] = useState(true);
 	useEffect(() => {
-		setTimeout(function () {
-			setShowElement(false);
+		setInterval(() => {
+			setShowElement(!showElement);
 		}, 5000);
 	}, []);
 
