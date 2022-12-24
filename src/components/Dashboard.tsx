@@ -26,9 +26,10 @@ export const Dashboard = observer(() => {
 	// Alter graphs
 	const [showElement, setShowElement] = useState(true);
 	useEffect(() => {
-		setInterval(() => {
-			setShowElement(!showElement);
+		const intervalId = setInterval(() => {
+			setShowElement((showElement) => !showElement);
 		}, 5000);
+		return () => clearInterval(intervalId);
 	}, []);
 
 	/*
