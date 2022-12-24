@@ -553,6 +553,9 @@ export class Store {
 			credits: {
 				enabled: false,
 			},
+			title: {
+				text: "Region",
+			},
 			tooltip: {
 				headerFormat: "",
 				pointFormat:
