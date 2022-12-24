@@ -16,6 +16,7 @@
   "dependencies": {
     "@dhis2/app-runtime": "^3.7.0",
     "@highcharts/map-collection": "^2.0.1",
+    "@mdi/react": "^1.6.1",
     "@types/lodash": "^4.14.191",
     "bootstrap": "^5.2.3",
     "highcharts": "^10.3.2",
