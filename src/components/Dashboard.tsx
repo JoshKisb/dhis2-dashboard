@@ -120,7 +120,7 @@ export const Dashboard = observer(() => {
 							<div className="grid-elem-upper">
 								{/* LINE-GRAPH */}
 								<div className="card grid-elem grid-item-1">
-									<div className="card-body">
+									<div className="card-body" style={{ padding: 0 }}>
 										{showElement ? (
 											<HighchartsReact
 												containerProps={{ style: { height: "100%" } }}
@@ -139,7 +139,7 @@ export const Dashboard = observer(() => {
 
 								{/* COLUMN CHART */}
 								<div className="card grid-elem grid-item-2">
-									<div className="card-body">
+									<div className="card-body" style={{ padding: 0 }}>
 										{showElement ? (
 											<HighchartsReact
 												containerProps={{ style: { height: "100%" } }}
@@ -160,7 +160,7 @@ export const Dashboard = observer(() => {
 							{/* STACKED-CHART */}
 							<div className="grid-elem-lower">
 								<div className="card grid-elem grid-item-3">
-									<div className="card-body">
+									<div className="card-body" style={{ padding: 0 }}>
 										{showElement ? (
 											<HighchartsReact
 												containerProps={{ style: { height: "100%" } }}
@@ -179,7 +179,7 @@ export const Dashboard = observer(() => {
 
 								{/* PIE-CHART */}
 								<div className="card grid-elem grid-item-4">
-									<div className="card-body">
+									<div className="card-body" style={{ padding: 0 }}>
 										{showElement ? (
 											<HighchartsReact
 												containerProps={{ style: { height: "100%" } }}
