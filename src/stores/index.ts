@@ -121,7 +121,7 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Numbers of babies",
+					text: "Numbers in thousands",
 				},
 			},
 			xAxis: {
@@ -130,17 +130,17 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [600, 400, 300, 700, 710],
+					data: [60, 40, 30, 70, 71],
 					color: "red",
 				},
 				{
 					name: "Female",
-					data: [900, 580, 200, 400, 510],
+					data: [90, 58, 20, 40, 51],
 					color: "blue",
 				},
 				{
 					name: "Total",
-					data: [900 + 600, 580 + 400, 200 + 300, 400 + 700, 510 + 710],
+					data: [90 + 60, 58 + 40, 20 + 30, 40 + 70, 51 + 71],
 					color: "green",
 				},
 			],
@@ -165,7 +165,7 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Numbers of babies",
+					text: "Numbers in thousands",
 				},
 			},
 			xAxis: {
@@ -174,17 +174,17 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [500, 300, 200, 600, 610],
+					data: [50, 30, 20, 60, 61],
 					color: "blue",
 				},
 				{
 					name: "Female",
-					data: [800, 480, 100, 300, 410],
+					data: [80, 48, 10, 30, 41],
 					color: "pink",
 				},
 				{
 					name: "Total",
-					data: [800 + 700, 480 + 300, 100 + 200, 300 + 600, 410 + 610],
+					data: [80 + 70, 48 + 30, 10 + 20, 30 + 60, 41 + 61],
 					color: "yellow",
 				},
 			],
@@ -282,20 +282,20 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Death rate per thousand population",
+					text: "Numbers in thousands",
 				},
 			},
 			series: [
 				{
-					name: "Male Deaths",
+					name: "Male",
 					data: periods.map((pe) => parseFloat(maleDeaths[pe])),
 				},
 				{
-					name: "Female Deaths",
+					name: "Female",
 					data: periods.map((pe) => parseFloat(femaleDeaths[pe])),
 				},
 				{
-					name: "Total Deaths",
+					name: "Totals",
 					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
 				},
 			],
@@ -323,22 +323,22 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Birth rate per thousand population",
+					text: "Numbers in thousands",
 				},
 			},
 			series: [
 				{
-					name: "Male Births",
+					name: "Male",
 					data: periods.map((pe) => parseFloat(maleBirths[pe])),
 					color: "#EA1314",
 				},
 				{
-					name: "Female Births",
+					name: "Female",
 					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
 					color: "#1735F1",
 				},
 				{
-					name: "Total Births",
+					name: "Totals",
 					data: periods.map((pe) => parseFloat(totalBirths[pe])),
 					color: "#118347",
 				},
