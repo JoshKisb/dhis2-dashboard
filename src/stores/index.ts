@@ -110,7 +110,7 @@ export class Store {
 				type: "line",
 			},
 			title: {
-				text: "Births by gender",
+				text: "Births by Gender",
 			},
 			plotOptions: {
 				series: {
@@ -154,7 +154,7 @@ export class Store {
 				type: "line",
 			},
 			title: {
-				text: "Deaths by gender",
+				text: "Deaths by Gender",
 			},
 			plotOptions: {
 				series: {
