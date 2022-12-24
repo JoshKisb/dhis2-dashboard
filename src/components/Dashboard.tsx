@@ -103,7 +103,7 @@ export const Dashboard = observer(() => {
 											border: "1px solid rgba(0,0,0,.175)",
 											flexDirection: "column",
 											borderRadius: "0.375rem",
-											paddingTop: "1%",
+											justifyContent: "center",
 										}}
 									>
 										<span
