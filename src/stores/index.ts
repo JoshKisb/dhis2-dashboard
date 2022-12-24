@@ -121,7 +121,7 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Numbers of babies",
+					text: "Numbers in thousands",
 				},
 			},
 			xAxis: {
@@ -130,17 +130,17 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [600, 400, 300, 700, 710],
+					data: [60, 40, 30, 70, 71],
 					color: "red",
 				},
 				{
 					name: "Female",
-					data: [900, 580, 200, 400, 510],
+					data: [90, 58, 20, 40, 51],
 					color: "blue",
 				},
 				{
 					name: "Total",
-					data: [900 + 600, 580 + 400, 200 + 300, 400 + 700, 510 + 710],
+					data: [90 + 60, 58 + 40, 20 + 30, 40 + 70, 51 + 71],
 					color: "green",
 				},
 			],
@@ -165,7 +165,7 @@ export class Store {
 			},
 			yAxis: {
 				title: {
-					text: "Numbers of babies",
+					text: "Numbers in thousands",
 				},
 			},
 			xAxis: {
@@ -174,25 +174,111 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [500, 300, 200, 600, 610],
+					data: [50, 30, 20, 60, 61],
 					color: "blue",
 				},
 				{
 					name: "Female",
-					data: [800, 480, 100, 300, 410],
+					data: [80, 48, 10, 30, 41],
 					color: "pink",
 				},
 				{
 					name: "Total",
-					data: [800 + 700, 480 + 300, 100 + 200, 300 + 600, 410 + 610],
+					data: [80 + 70, 48 + 30, 10 + 20, 30 + 60, 41 + 61],
 					color: "yellow",
 				},
 			],
 		};
 	}
 
+	// COLUMN BAR
+	get totalBirthsByGenderChartData() {
+		const femaleBirths = this.data[indicatorMap.femaleBirths];
+		const maleBirths = this.data[indicatorMap.maleBirths];
+		const totalBirths = this.data[indicatorMap.totalBirths];
+
+		const periods = Object.keys(maleBirths);
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "column",
+			},
+			title: {
+				text: "Births by Gender",
+			},
+			xAxis: {
+				categories: periods,
+				crosshair: true,
+			},
+			yAxis: {
+				title: {
+					text: "Numbers in thousands",
+				},
+			},
+			series: [
+				{
+					name: "Male",
+					data: periods.map((pe) => parseFloat(maleBirths[pe])),
+					color: "#EA1314",
+				},
+				{
+					name: "Female",
+					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
+					color: "#1735F1",
+				},
+				{
+					name: "Totals",
+					data: periods.map((pe) => parseFloat(totalBirths[pe])),
+					color: "#118347",
+				},
+			],
+		};
+	}
+
+	get totalDeathsByGenderChartData() {
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths];
+		const maleDeaths = this.data[indicatorMap.maleDeaths];
+		const totalDeaths = this.data[indicatorMap.totalDeaths];
+
+		const periods = Object.keys(maleDeaths);
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "column",
+			},
+			title: {
+				text: "Total Deaths",
+			},
+			xAxis: {
+				categories: periods,
+				crosshair: true,
+			},
+			yAxis: {
+				title: {
+					text: "Numbers in thousands",
+				},
+			},
+			series: [
+				{
+					name: "Male",
+					data: periods.map((pe) => parseFloat(maleDeaths[pe])),
+				},
+				{
+					name: "Female",
+					data: periods.map((pe) => parseFloat(femaleDeaths[pe])),
+				},
+				{
+					name: "Totals",
+					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
+				},
+			],
+		};
+	}
+
 	// STACKED GRAPH
-	get stackedChartData() {
+	get totalBirthStackedChartData() {
 		return {
 			...defaultChartOptions,
 			chart: {
@@ -204,7 +290,7 @@ export class Store {
 			yAxis: {
 				min: 0,
 				title: {
-					text: "Count trophies",
+					text: "Numbers in ten-thousands",
 				},
 				stackLabels: {
 					enabled: true,
@@ -245,52 +331,80 @@ export class Store {
 			},
 			series: [
 				{
-					name: "BPL",
-					data: [3, 5, 1, 13],
+					name: "Male",
+					data: [6, 4, 3, 7, 7],
+					color: "red",
 				},
 				{
-					name: "FA Cup",
-					data: [14, 8, 8, 12],
-				},
-				{
-					name: "CL",
-					data: [0, 2, 6, 3],
+					name: "Female",
+					data: [9, 5, 2, 4, 5],
+					color: "blue",
 				},
 			],
 		};
 	}
 
-	get totalDeathsByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths];
-		const maleDeaths = this.data[indicatorMap.maleDeaths];
-		const totalDeaths = this.data[indicatorMap.totalDeaths];
-
-		const periods = Object.keys(maleDeaths);
-
+	get totalDeathStackedChartData() {
 		return {
 			...defaultChartOptions,
 			chart: {
 				type: "column",
 			},
-			title: {
-				text: "Total Deaths",
-			},
 			xAxis: {
-				categories: periods,
-				crosshair: true,
+				categories: ["2018", "2019", "2020", "2021"],
+			},
+			yAxis: {
+				min: 0,
+				title: {
+					text: "Numbers in ten-thousands",
+				},
+				stackLabels: {
+					enabled: true,
+					style: {
+						fontWeight: "bold",
+						color:
+							// theme
+							(Highcharts.defaultOptions.title.style &&
+								Highcharts.defaultOptions.title.style.color) ||
+							"gray",
+						textOutline: "none",
+					},
+				},
+			},
+			legend: {
+				align: "left",
+				x: 70,
+				verticalAlign: "top",
+				y: 70,
+				floating: true,
+				backgroundColor:
+					Highcharts.defaultOptions.legend.backgroundColor || "white",
+				borderColor: "#CCC",
+				borderWidth: 1,
+				shadow: false,
+			},
+			tooltip: {
+				headerFormat: "<b>{point.x}</b><br/>",
+				pointFormat: "{series.name}: {point.y}<br/>Total: {point.stackTotal}",
+			},
+			plotOptions: {
+				column: {
+					stacking: "normal",
+					dataLabels: {
+						enabled: true,
+					},
+				},
 			},
 			series: [
 				{
-					name: "Male Deaths",
-					data: periods.map((pe) => parseFloat(maleDeaths[pe])),
+					name: "Male",
+					data: [5, 3, 2, 6, 6],
+					color: "blue",
 				},
 				{
-					name: "Female Deaths",
-					data: periods.map((pe) => parseFloat(femaleDeaths[pe])),
-				},
-				{
-					name: "Total Deaths",
-					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
+					name: "Female",
+					data: [8, 4, 1, 3, 4],
+					color: "pink",
 				},
 			],
 		};
