@@ -28,7 +28,7 @@ export const Dashboard = observer(() => {
 	useEffect(() => {
 		const intervalId = setInterval(() => {
 			setShowElement((showElement) => !showElement);
-		}, 5000);
+		}, 10000);
 		return () => clearInterval(intervalId);
 	}, []);
 
@@ -87,8 +87,21 @@ export const Dashboard = observer(() => {
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
 							<div className="marquee no-padding header-slider">
 								<p>
-									Welcome to Vital Events dashboard! Providing the Births and
-									Death statistics per District of the Republic of Uganda.
+									The Births and Deaths registry statistics
+									{Object.keys(indicatorMap).map((ky) => (
+										<>
+											<span> | {startCase(ky)}:</span>
+											<span
+												style={{
+													fontWeight: "800",
+												}}
+											>
+												{store.yearsData[indicatorMap[ky]]
+													? store.yearsData[indicatorMap[ky]]
+													: "---"}
+											</span>
+										</>
+									))}
 								</p>
 							</div>
 
