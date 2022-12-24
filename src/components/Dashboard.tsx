@@ -1,6 +1,6 @@
-import React, {useCallback} from "react";
-import Icon from '@mdi/react';
-import { mdiFullscreen, mdiFullscreenExit } from '@mdi/js';
+import React, { useCallback } from "react";
+import Icon from "@mdi/react";
+import { mdiFullscreen, mdiFullscreenExit } from "@mdi/js";
 import { FullScreen, useFullScreenHandle } from "react-full-screen";
 import { useEffect, useState } from "react";
 import Highcharts from "highcharts";
@@ -57,184 +57,192 @@ export const Dashboard = observer(() => {
 
 	return (
 		<FullScreen handle={handle}>
-		<div
-			className="page"
-			style={{
-				backgroundColor: "#F3F2EF",
-				width: "100vw",
-				height: "100vh",
-				paddingLeft: "0px",
-				paddingRight: "0px",
-			}}
-		>
-			{loading && (
-				<div className="row">
-					<div className="col-12 d-flex justify-content-center">
-						<div
-							className="spinner-grow"
-							style={{ width: "3rem", height: "3rem", alignSelf: "center" }}
-							role="status"
-						>
-							<span className="visually-hidden">Loading...</span>
+			<div
+				className="page"
+				style={{
+					backgroundColor: "#F3F2EF",
+					width: "100vw",
+					height: "100vh",
+					paddingLeft: "0px",
+					paddingRight: "0px",
+				}}
+			>
+				{loading && (
+					<div className="row">
+						<div className="col-12 d-flex justify-content-center">
+							<div
+								className="spinner-grow"
+								style={{ width: "3rem", height: "3rem", alignSelf: "center" }}
+								role="status"
+							>
+								<span className="visually-hidden">Loading...</span>
+							</div>
 						</div>
 					</div>
-				</div>
-			)}
+				)}
 
-			{!loading && (
-				<>
-					<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
-						<div className="marquee no-padding header-slider">
-							<p>
-								Welcome to Vital Events dashboard! Providing the Births and
-								Death statistics per District of the Republic of Uganda.
-							</p>
-						</div>
+				{!loading && (
+					<>
+						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
+							<div className="marquee no-padding header-slider">
+								<p>
+									Welcome to Vital Events dashboard! Providing the Births and
+									Death statistics per District of the Republic of Uganda.
+								</p>
+							</div>
 
-						{/* SUMMARY CARDS */}
-						<div className="header-summary-divs-container">
-							{Object.keys(indicatorMap).map((ky, index) => (
-								<div
-									className={`summary-card-${index + 1}`}
-									key={index}
-									style={{
-										display: "flex",
-										alignItems: "center",
-										border: "1px solid rgba(0,0,0,.175)",
-										flexDirection: "column",
-										borderRadius: "0.375rem",
-										paddingTop: "1%",
-									}}
-								>
-									<span
+							{/* SUMMARY CARDS */}
+							<div className="header-summary-divs-container">
+								{Object.keys(indicatorMap).map((ky, index) => (
+									<div
+										className={`summary-card-${index + 1}`}
+										key={index}
 										style={{
-											width: "100%",
-											fontWeight: "800",
+											display: "flex",
+											alignItems: "center",
+											border: "1px solid rgba(0,0,0,.175)",
+											flexDirection: "column",
+											borderRadius: "0.375rem",
+											paddingTop: "1%",
 										}}
 									>
-										{store.yearsData[indicatorMap[ky]]
-											? store.yearsData[indicatorMap[ky]]
-											: "---"}
-									</span>
-									<span>{startCase(ky)}</span>
-								</div>
-							))}
+										<span
+											style={{
+												width: "100%",
+												fontWeight: "800",
+											}}
+										>
+											{store.yearsData[indicatorMap[ky]]
+												? store.yearsData[indicatorMap[ky]]
+												: "---"}
+										</span>
+										<span>{startCase(ky)}</span>
+									</div>
+								))}
+							</div>
 						</div>
-					</div>
 
-					{/* GRAPHS & MAP */}
-					<div className={`main-div`}>
-						{/* GRAPHS CONTAINER */}
-						<div className="graphs-container">
-							<div className="grid-elem-upper">
-								{/* LINE-GRAPH */}
-								<div className="card grid-elem grid-item-1">
-									<div className="card-body" style={{ padding: 0 }}>
-										{showElement ? (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.lineChartDeathData}
-											/>
-										) : (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.lineChartBirthData}
-											/>
-										)}
+						{/* GRAPHS & MAP */}
+						<div className={`main-div`}>
+							{/* GRAPHS CONTAINER */}
+							<div className="graphs-container">
+								<div className="grid-elem-upper">
+									{/* LINE-GRAPH */}
+									<div className="card grid-elem grid-item-1">
+										<div className="card-body" style={{ padding: 0 }}>
+											{showElement ? (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.lineChartDeathData}
+												/>
+											) : (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.lineChartBirthData}
+												/>
+											)}
+										</div>
+									</div>
+
+									{/* COLUMN CHART */}
+									<div className="card grid-elem grid-item-2">
+										<div className="card-body" style={{ padding: 0 }}>
+											{showElement ? (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.totalDeathsByGenderChartData}
+												/>
+											) : (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.totalBirthsByGenderChartData}
+												/>
+											)}
+										</div>
 									</div>
 								</div>
 
-								{/* COLUMN CHART */}
-								<div className="card grid-elem grid-item-2">
-									<div className="card-body" style={{ padding: 0 }}>
-										{showElement ? (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.totalDeathsByGenderChartData}
-											/>
-										) : (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.totalBirthsByGenderChartData}
-											/>
-										)}
+								{/* STACKED-CHART */}
+								<div className="grid-elem-lower">
+									<div className="card grid-elem grid-item-3">
+										<div className="card-body" style={{ padding: 0 }}>
+											{showElement ? (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.totalDeathStackedChartData}
+												/>
+											) : (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.totalBirthStackedChartData}
+												/>
+											)}
+										</div>
+									</div>
+
+									{/* PIE-CHART */}
+									<div className="card grid-elem grid-item-4">
+										<div className="card-body" style={{ padding: 0 }}>
+											{showElement ? (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.birthByGenderChartData}
+												/>
+											) : (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.deathByGenderChartData}
+												/>
+											)}
+										</div>
 									</div>
 								</div>
 							</div>
 
-							{/* STACKED-CHART */}
-							<div className="grid-elem-lower">
-								<div className="card grid-elem grid-item-3">
-									<div className="card-body" style={{ padding: 0 }}>
-										{showElement ? (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.totalDeathStackedChartData}
-											/>
-										) : (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.totalBirthStackedChartData}
-											/>
-										)}
-									</div>
+							{/* MAP CONTAINER */}
+							<div className="card map-container">
+								<div className="card-body">
+									<HighchartsReact
+										containerProps={{ style: { height: "100%" } }}
+										highcharts={Highcharts}
+										constructorType={"mapChart"}
+										options={store.mapChartOptions}
+									/>
 								</div>
-
-								{/* PIE-CHART */}
-								<div className="card grid-elem grid-item-4">
-									<div className="card-body" style={{ padding: 0 }}>
-										{showElement ? (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.birthByGenderChartData}
-											/>
-										) : (
-											<HighchartsReact
-												containerProps={{ style: { height: "100%" } }}
-												highcharts={Highcharts}
-												options={store.deathByGenderChartData}
-											/>
-										)}
-									</div>
-								</div>
+								<span
+									onClick={() => {
+										if (!isFullScreen) {
+											handle.enter();
+										} else {
+											handle.exit();
+										}
+										setIsFullScreen(!isFullScreen);
+									}}
+									style={{
+										position: "absolute",
+										right: "0",
+										bottom: "0",
+									}}
+								>
+									{!isFullScreen ? (
+										<Icon path={mdiFullscreen} size={2} color="gray" />
+									) : (
+										<Icon path={mdiFullscreenExit} size={1} color="gray" />
+									)}
+								</span>
 							</div>
 						</div>
-
-						{/* MAP CONTAINER */}
-						<div className="card map-container">
-							<div className="card-body">
-								<HighchartsReact
-									containerProps={{ style: { height: "100%" } }}
-									highcharts={Highcharts}
-									constructorType={"mapChart"}
-									options={store.mapChartOptions}
-								/>
-							</div>
-							<span
-								onClick={()=>{if(!isFullScreen){handle.enter();}else{handle.exit();} setIsFullScreen(!isFullScreen)}}
-								style={{
-									position: "absolute",
-									right: "0",
-									bottom: "0",
-								}}
-							>
-								{(!isFullScreen)?
-								<Icon path={mdiFullscreen} size={2} color="gray"/>
-								:<Icon path={mdiFullscreenExit} size={1} color="gray"/>
-								}
-							</span>
-						</div>
-					</div>
-				</>
-			)}
-		</div>
+					</>
+				)}
+			</div>
 		</FullScreen>
 	);
 });

@@ -249,7 +249,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
-				text: "Total Deaths",
+				text: "Deaths by Gender",
 			},
 			xAxis: {
 				categories: periods,
@@ -283,6 +283,9 @@ export class Store {
 			...defaultChartOptions,
 			chart: {
 				type: "column",
+			},
+			title: {
+				text: "Births by Gender",
 			},
 			xAxis: {
 				categories: ["2018", "2019", "2020", "2021"],
@@ -349,6 +352,9 @@ export class Store {
 			...defaultChartOptions,
 			chart: {
 				type: "column",
+			},
+			title: {
+				text: "Births by Gender",
 			},
 			xAxis: {
 				categories: ["2018", "2019", "2020", "2021"],
@@ -433,7 +439,7 @@ export class Store {
 				type: "pie",
 			},
 			title: {
-				text: "Birth by gender",
+				text: "Birth by Gender",
 			},
 			tooltip: {
 				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
@@ -498,7 +504,7 @@ export class Store {
 				type: "pie",
 			},
 			title: {
-				text: "Deaths by gender",
+				text: "Deaths by Gender",
 			},
 			tooltip: {
 				pointFormat: "{series.name}: <b>{point.percentage:.1f}%</b>",
