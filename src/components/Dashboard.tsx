@@ -19,7 +19,7 @@ highchartsMap(Highcharts);
 
 export const Dashboard = observer(() => {
 	const [loading, setLoading] = useState(true);
-	const [isFullScreen, setIsFullScreen] = useState(true);
+	const [isFullScreen, setIsFullScreen] = useState(false);
 	const store = useStore();
 	const handle = useFullScreenHandle();
 
@@ -218,7 +218,7 @@ export const Dashboard = observer(() => {
 								/>
 							</div>
 							<span
-								onClick={()=>{handle.enter(); setIsFullScreen(!isFullScreen)}}
+								onClick={()=>{if(!isFullScreen){handle.enter();}else{handle.exit();} setIsFullScreen(!isFullScreen)}}
 								style={{
 									position: "absolute",
 									right: "0",
@@ -226,7 +226,7 @@ export const Dashboard = observer(() => {
 								}}
 							>
 								{(!isFullScreen)?
-								<Icon path={mdiFullscreen} size={1} color="gray"/>
+								<Icon path={mdiFullscreen} size={2} color="gray"/>
 								:<Icon path={mdiFullscreenExit} size={1} color="gray"/>
 								}
 							</span>
