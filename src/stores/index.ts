@@ -175,17 +175,17 @@ export class Store {
 				{
 					name: "Male",
 					data: [50, 30, 20, 60, 61],
-					color: "blue",
+					color: "#00B5E2",
 				},
 				{
 					name: "Female",
 					data: [80, 48, 10, 30, 41],
-					color: "pink",
+					color: "#F37F33",
 				},
 				{
 					name: "Total",
 					data: [80 + 70, 48 + 30, 10 + 20, 30 + 60, 41 + 61],
-					color: "yellow",
+					color: "#980C71",
 				},
 			],
 		};
@@ -354,7 +354,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
-				text: "Births by Gender",
+				text: "Deaths by Gender",
 			},
 			xAxis: {
 				categories: ["2018", "2019", "2020", "2021"],
@@ -405,12 +405,12 @@ export class Store {
 				{
 					name: "Male",
 					data: [5, 3, 2, 6, 6],
-					color: "blue",
+					color: "#00B5E2",
 				},
 				{
 					name: "Female",
 					data: [8, 4, 1, 3, 4],
-					color: "pink",
+					color: "#F37F33",
 				},
 			],
 		};
@@ -466,14 +466,14 @@ export class Store {
 					data: [
 						{
 							name: "Female",
-							y: (totalFemaleBirths / total) * 100,
+							y: 60,
 							sliced: true,
 							selected: true,
 							color: "#2C6693",
 						},
 						{
 							name: "Male",
-							y: (totalMaleBirths / total) * 100,
+							y: 40,
 							color: "#118347",
 						},
 					],
