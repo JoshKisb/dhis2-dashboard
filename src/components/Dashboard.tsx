@@ -193,7 +193,7 @@ export const Dashboard = observer(() => {
 								style={{
 									position: "absolute",
 									right: "0",
-									verticalAlign: "bottom",
+									bottom: "0",
 								}}
 							>
 								[]
