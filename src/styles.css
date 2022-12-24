@@ -89,74 +89,80 @@
 	margin-right: -30px;
 }
 
-
-
-
-         .page {
-             width: 100vw;
-             height: 100vh;
-             align-items: top;
-             overflow: hidden;
-             padding: 0;
-         }
-         .header-div {
-            position: relative;
-            width:  100%;
-            height: 17vh;
-            padding: 0;
-         }
-         .header-slider {
-            position: relative;
-            background: lightgray;
-            height: 30%;
-         }
-         .header-summary-divs-container {
-            position: relative;
-            height: 70%;
-            display: flex;
-            justify-content: space-between;
-            padding: 0.5% 0.5% 1% 0.5%;
-         }
-         .header-summary-divs-container div {
-            background: white; 
-            width: 13.5%;
-            text-align: center;
-         }
-         .main-div {
-            height: 80vh;
-            width: 100%;
-            position:relative;
-            display: flex;
-            justify-content: space-between;
-            background-color: #F3F2EF;
-            padding: 0.5%;
-         }
-         .graphs-container {
-            height:100%;
-            width: 68%;
-            justify-content: center;
-            padding:0;
-         }
-         .grid-elem-upper, .grid-elem-lower {
-            position: relative;
-            width: 100%;
-            height: 50%;
-            display: flex;
-         }
-         .grid-elem {
-             height:99%;
-             width: 49.5%;
-             background-color: white;
-             text-align: center;
-             padding: 0.2%;
-         }
-         .grid-item-1 { margin: 0 0.5% 0.5% 0; }
-         .grid-item-2 { margin: 0 0 0.5% 0.5%; }
-         .grid-item-3 { margin: 0.5% 0.5% 0.5% 0; }
-         .grid-item-4 { margin: 0.5% 0 0.5% 0.5%; }
-         .map-container {
-            height:98%;
-            width: 32%;
-            padding: 0;
-            background-color: white;
-         }
+.page {
+	width: 100vw;
+	height: 100vh;
+	align-items: top;
+	overflow: hidden;
+	padding: 0;
+}
+.header-div {
+	position: relative;
+	width: 100%;
+	height: 17vh;
+	padding: 0;
+}
+.header-slider {
+	position: relative;
+	background: lightgray;
+	height: 30%;
+}
+.header-summary-divs-container {
+	position: relative;
+	height: 70%;
+	display: flex;
+	justify-content: space-between;
+	padding: 0.5% 0.5% 0.2% 0.5%;
+}
+.header-summary-divs-container div {
+	background: white;
+	width: 13.5%;
+	text-align: center;
+}
+.main-div {
+	height: 80vh;
+	width: 100%;
+	position: relative;
+	display: flex;
+	justify-content: space-between;
+	background-color: #f3f2ef;
+	padding: 0.5%;
+}
+.graphs-container {
+	height: 100%;
+	width: 68%;
+	justify-content: center;
+	padding: 0;
+}
+.grid-elem-upper,
+.grid-elem-lower {
+	position: relative;
+	width: 100%;
+	height: 50%;
+	display: flex;
+}
+.grid-elem {
+	height: 99%;
+	width: 49.5%;
+	background-color: white;
+	text-align: center;
+	padding: 0.2%;
+}
+.grid-item-1 {
+	margin: 0 0.5% 0.5% 0;
+}
+.grid-item-2 {
+	margin: 0 0 0.5% 0.5%;
+}
+.grid-item-3 {
+	margin: 0.5% 0.5% 0.5% 0;
+}
+.grid-item-4 {
+	margin: 0.5% 0 0.5% 0.5%;
+}
+.map-container {
+	height: 98%;
+	width: 31.5%;
+	padding: 0;
+	background-color: white;
+}
