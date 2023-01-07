@@ -43,7 +43,9 @@ export class UgandaRegions extends Component {
 	render() {
 		return (
 			<>
-				<h3 style={{ textAlign: "center" }}>Total Live Births by Region</h3>
+				<p style={{ fontSize: 18, textAlign: "center" }}>
+					Total Live Births by Region
+				</p>
 				<MapContainer
 					style={{ height: "60vh", backgroundColor: "white" }}
 					center={{ lat: 1.3733, lng: 32.2903 }}
