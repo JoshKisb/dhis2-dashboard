@@ -14,6 +14,7 @@ import { useStore } from "../stores";
 import { indicatorMap } from "../assets/indicators";
 // import map from "@highcharts/map-collection/custom/world.topo.json";
 import { startCase } from "lodash";
+import UgandaRegions from "./UgandaRegions";
 
 highchartsMap(Highcharts);
 
@@ -224,13 +225,16 @@ export const Dashboard = observer(() => {
 							{/* MAP CONTAINER */}
 							<div className="card map-container">
 								<div className="card-body">
-									<HighchartsReact
+									<UgandaRegions />
+
+									{/* <HighchartsReact
 										containerProps={{ style: { height: "100%" } }}
 										highcharts={Highcharts}
 										constructorType={"mapChart"}
 										options={store.mapChartOptions}
-									/>
+									/> */}
 								</div>
+
 								<span
 									onClick={() => {
 										if (!isFullScreen) {
