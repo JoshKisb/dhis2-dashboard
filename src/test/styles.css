@@ -126,6 +126,7 @@
 	display: flex;
 	justify-content: space-between;
 	background-color: #f3f2ef;
+	margin-top: 10px;
 	padding: 0.5%;
 }
 .graphs-container {

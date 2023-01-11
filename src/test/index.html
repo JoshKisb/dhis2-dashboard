@@ -4,12 +4,143 @@
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<link rel="stylesheet" href="./styles.css" />
 		<script src="https://code.highcharts.com/highcharts.js"></script>
 
-		<title>Test Highgraphs</title>
+		<title>Test Responsiveness</title>
 	</head>
 	<body>
-		<div id="container"></div>
+		<div class="main">
+			<div class="page">
+				<div class="row">
+					<div class="col-12 d-flex justify-content-center">
+						<div
+							class="spinner-grow"
+							style="width: 3rem; height: 3rem; align-self: center"
+							role="status"
+						>
+							<span class="visually-hidden">Loading...</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="header-div" style="background-color: #f3f2ef">
+					<div class="marquee no-padding header-slider">
+						<p>The Births and Deaths registry statistics</p>
+					</div>
+
+					<div class="header-summary-divs-container">
+						<div
+							class="summary-card"
+							style="
+								display: flex;
+								align-items: center;
+								border: 1px solid rgba(0, 0, 0, 0.175);
+								flex-direction: column;
+								border-radius: 0.375rem;
+								justify-content: center;
+							"
+						>
+							<span style="width: 100%; font-weight: 800"> 11.0 </span>
+							<span>Males Births</span>
+						</div>
+
+						<div
+							class="summary-card"
+							style="
+								display: flex;
+								align-items: center;
+								border: 1px solid rgba(0, 0, 0, 0.175);
+								flex-direction: column;
+								border-radius: 0.375rem;
+								justify-content: center;
+							"
+						>
+							<span style="width: 100%; font-weight: 800"> 11.0 </span>
+							<span>Males Totals</span>
+						</div>
+
+						<div
+							class="summary-card"
+							style="
+								display: flex;
+								align-items: center;
+								border: 1px solid rgba(0, 0, 0, 0.175);
+								flex-direction: column;
+								border-radius: 0.375rem;
+								justify-content: center;
+							"
+						>
+							<span style="width: 100%; font-weight: 800"> 11.0 </span>
+							<span>Female Births</span>
+						</div>
+					</div>
+				</div>
+
+				<div class="main-div">
+					<div class="graphs-container">
+						<div class="grid-elem-upper">
+							<div
+								class="card grid-elem grid-item-1"
+								style="background-color: red"
+							>
+								<div
+									class="card-body"
+									style="padding: 0; background-color: red"
+								>
+									HighchartsReact
+								</div>
+							</div>
+
+							<div
+								class="card grid-elem grid-item-2"
+								style="background-color: yellow"
+							>
+								<div
+									class="card-body"
+									style="padding: 0; background-color: yellow"
+								>
+									HighchartsReact
+								</div>
+							</div>
+						</div>
+
+						<div class="grid-elem-lower">
+							<div
+								class="card grid-elem grid-item-3"
+								style="background-color: blue"
+							>
+								<div
+									class="card-body"
+									style="padding: 0; background-color: blue"
+								>
+									HighchartsReact
+								</div>
+							</div>
+
+							<div
+								class="card grid-elem grid-item-4"
+								style="background-color: pink"
+							>
+								<div
+									class="card-body"
+									style="padding: 0; background-color: pink"
+								>
+									HighchartsReact
+								</div>
+							</div>
+						</div>
+					</div>
+
+					<div class="card map-container" style="background-color: green">
+						<div class="card-body" style="padding: 0; background-color: green">
+							UgandaRegions
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
 		<script type="text/javascript" src="./app.js"></script>
 	</body>
 </html>
