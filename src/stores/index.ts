@@ -70,7 +70,7 @@ export class Store {
 	}
 
 	get totalDeathsChartData() {
-		const totalDeaths = this.data[indicatorMap.totalDeaths] || [100];
+		const totalDeaths = this.data[indicatorMap.totalDeaths] || 100;
 
 		const periods = Object.keys(totalDeaths);
 		return {
@@ -193,9 +193,9 @@ export class Store {
 
 	// COLUMN BAR
 	get totalBirthsByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [20];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [40];
-		const totalBirths = this.data[indicatorMap.totalBirths] || [60];
+		const femaleBirths = this.data[indicatorMap.femaleBirths] || 20;
+		const maleBirths = this.data[indicatorMap.maleBirths] || 40;
+		const totalBirths = this.data[indicatorMap.totalBirths] || 60;
 
 		const periods = Object.keys(maleBirths);
 
@@ -237,9 +237,9 @@ export class Store {
 	}
 
 	get totalDeathsByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [20];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [30];
-		const totalDeaths = this.data[indicatorMap.totalDeaths] || [50];
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || 20;
+		const maleDeaths = this.data[indicatorMap.maleDeaths] || 30;
+		const totalDeaths = this.data[indicatorMap.totalDeaths] || 50;
 
 		const periods = Object.keys(maleDeaths);
 
@@ -418,8 +418,8 @@ export class Store {
 
 	// PIE-CHART
 	get birthByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [60];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [40];
+		const femaleBirths = this.data[indicatorMap.femaleBirths] || 80;
+		const maleBirths = this.data[indicatorMap.maleBirths] || 20;
 		const totalFemaleBirths = Object.values(femaleBirths).reduce(
 			(acc: number, value: any) => acc + parseFloat(value),
 			0
@@ -483,8 +483,8 @@ export class Store {
 	}
 
 	get deathByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [55];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [45];
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || 35;
+		const maleDeaths = this.data[indicatorMap.maleDeaths] || 65;
 
 		const totalFemaleDeaths = Object.values(femaleDeaths).reduce(
 			(acc: number, value: any) => acc + parseFloat(value),
