@@ -173,11 +173,18 @@
 	body {
 		background-color: white;
 	}
+	.page {
+		width: 100vw;
+		height: 100vh;
+		align-items: top;
+		overflow: scroll;
+		padding: 0;
+	}
 	.main-div {
-		height: 80vh;
+		height: 200vh;
 		width: 100%;
-		position: relative;
 		display: flex;
+		position: relative;
 		flex-direction: column;
 		justify-content: space-between;
 		background-color: #f3f2ef;
@@ -203,7 +210,9 @@
 		width: 100%;
 		background-color: white;
 		text-align: center;
-		padding: 0.2%;
+		padding: 2%;
+		margin-top: 2%;
+		margin-bottom: 2%;
 	}
 	.map-container {
 		height: 100%;

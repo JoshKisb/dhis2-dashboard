@@ -174,6 +174,12 @@
 	body {
 		background-color: white;
 	}
+	.page {
+		width: 100vw;
+		height: 100vh;
+		overflow: scroll;
+		padding: 0;
+	}
 	.main-div {
 		height: 80vh;
 		width: 100%;
@@ -204,7 +210,9 @@
 		width: 100%;
 		background-color: white;
 		text-align: center;
-		padding: 0.2%;
+		padding: 2%;
+		margin-top: 2%;
+		margin-bottom: 2%;
 	}
 	.map-container {
 		height: 100%;
