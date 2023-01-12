@@ -179,6 +179,14 @@
 		overflow: scroll;
 		padding: 0;
 	}
+	.header-summary-divs-container {
+		position: relative;
+		height: 70%;
+		display: flex;
+		justify-content: space-between;
+		padding: 0.5% 0.5% 0.2% 0.5%;
+		font-size: 12px;
+	}
 	.main-div {
 		height: 200vh;
 		width: 100%;
