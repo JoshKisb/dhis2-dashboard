@@ -49,7 +49,7 @@ export class UgandaRegions extends Component {
 				<MapContainer
 					style={{ height: "60vh", backgroundColor: "white" }}
 					center={{ lat: 1.3733, lng: 32.2903 }}
-					zoom={6.4}
+					zoom={7}
 				>
 					<GeoJSON
 						style={this.regionStyle}
