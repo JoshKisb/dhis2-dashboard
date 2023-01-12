@@ -176,7 +176,6 @@
 	.page {
 		width: 100vw;
 		height: 100vh;
-		align-items: top;
 		overflow: scroll;
 		padding: 0;
 	}
