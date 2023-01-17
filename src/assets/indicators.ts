@@ -1,11 +1,22 @@
-export const indicatorMap = {
-	totalDeaths: "vU8Ofttev65",
-	femaleDeaths: "JDygTkWCxQU",
-	maleDeaths: "CFMGxtTBf6m",
+
+
+export const birthIndicators = {
 	totalBirths: "Z64hUZUifEF",
 	femaleBirths: "zkMVFHEPvzC",
 	maleBirths: "ihAAgZ8OjGE",
-	totalCertified: "ihAAgZ8OjGE",
+}
+
+export const deathIndicators = {
+	deathsNotified: "vU8Ofttev65",
+	femaleDeaths: "JDygTkWCxQU",
+	maleDeaths: "CFMGxtTBf6m",
+	deathsCertified: "T6TTjdahYxL",
+	registeredDeaths: "hIYU0NgVZt8",
+}
+
+export const indicatorMap = {
+	...birthIndicators,
+	...deathIndicators
 };
 
 // just for reference

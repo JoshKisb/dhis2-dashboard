@@ -43,8 +43,8 @@ export class UgandaRegions extends Component {
 	render() {
 		return (
 			<>
-				<p style={{ fontSize: 18, textAlign: "center" }}>
-					Total Live Births by Region
+				<p style={{ fontSize: 18, textAlign: "center", fontWeight: "bold" }}>
+					{`Total ${this.props.showDeaths ? 'Deaths' : 'Live Births'} by Region`}
 				</p>
 				<MapContainer
 					style={{ height: "60vh", backgroundColor: "white" }}

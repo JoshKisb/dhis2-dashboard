@@ -11,10 +11,11 @@ import mapDataIE from "@highcharts/map-collection/countries/ie/ie-all.geo.json";
 import map from "@highcharts/map-collection/countries/ug/ug-all.geo.json";
 import { observer } from "mobx-react-lite";
 import { useStore } from "../stores";
-import { indicatorMap } from "../assets/indicators";
+import { birthIndicators, deathIndicators, indicatorMap } from "../assets/indicators";
 // import map from "@highcharts/map-collection/custom/world.topo.json";
 import { startCase } from "lodash";
 import UgandaRegions from "./UgandaRegions";
+import VerticalSwitch from "./VerticalSwitch";
 
 highchartsMap(Highcharts);
 
@@ -23,14 +24,18 @@ export const Dashboard = observer(() => {
 	const [isFullScreen, setIsFullScreen] = useState(false);
 	const store = useStore();
 	const handle = useFullScreenHandle();
+	const [showDeaths, setShowDeaths] = useState(false);
+
+	const toggleBirths = (showing: string) => {
+		setShowDeaths((showElement) => !showElement);
+	}
 
 	// Alter graphs
-	const [showElement, setShowElement] = useState(true);
 	useEffect(() => {
-		const intervalId = setInterval(() => {
-			setShowElement((showElement) => !showElement);
-		}, 10000);
-		return () => clearInterval(intervalId);
+		// const intervalId = setInterval(() => {
+		// 	setShowElement((showElement) => !showElement);
+		// }, 10000);
+		// return () => clearInterval(intervalId);
 	}, []);
 
 	/*
@@ -57,13 +62,15 @@ export const Dashboard = observer(() => {
 		});
 	}, []);
 
+	const currentIndicators = showDeaths ? deathIndicators: birthIndicators;
+
 	return (
 		<FullScreen handle={handle}>
 			<div
 				className="page"
 				style={{
 					backgroundColor: "#F3F2EF",
-					width: "100vw",
+					width: "100%",
 					height: "100vh",
 					paddingLeft: "0px",
 					paddingRight: "0px",
@@ -88,8 +95,8 @@ export const Dashboard = observer(() => {
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
 							<div className="marquee no-padding header-slider">
 								<p>
-									The Births and Deaths registry statistics
-									{Object.keys(indicatorMap).map((ky) => (
+									{`The ${showDeaths ? 'Deaths' : 'Births'} registry statistics`}
+									{Object.keys(currentIndicators).map((ky) => (
 										<>
 											<span> | {startCase(ky)}:</span>
 											<span
@@ -97,8 +104,8 @@ export const Dashboard = observer(() => {
 													fontWeight: "800",
 												}}
 											>
-												{store.yearsData[indicatorMap[ky]]
-													? store.yearsData[indicatorMap[ky]]
+												{store.yearsData[currentIndicators[ky]]
+													? store.yearsData[currentIndicators[ky]]
 													: "---"}
 											</span>
 										</>
@@ -108,9 +115,15 @@ export const Dashboard = observer(() => {
 
 							{/* SUMMARY CARDS */}
 							<div className="header-summary-divs-container">
-								{Object.keys(indicatorMap).map((ky, index) => (
+								<VerticalSwitch options={["Births", "Deaths"]} onChange={toggleBirths} />
+								<div style={{
+									flex: 1,
+									display: "flex",
+									justifyContent: "flex-end"
+								}}>
+								{Object.keys(currentIndicators).map((ky, index) => (
 									<div
-										className={`summary-card-${index + 1}`}
+										className={`sum-card summary-card-${index + 1}`}
 										key={index}
 										style={{
 											display: "flex",
@@ -127,13 +140,14 @@ export const Dashboard = observer(() => {
 												fontWeight: "800",
 											}}
 										>
-											{store.yearsData[indicatorMap[ky]]
-												? store.yearsData[indicatorMap[ky]]
+											{store.yearsData[currentIndicators[ky]]
+												? store.yearsData[currentIndicators[ky]]
 												: "---"}
 										</span>
 										<span>{startCase(ky)}</span>
 									</div>
 								))}
+								</div>
 							</div>
 						</div>
 
@@ -145,7 +159,7 @@ export const Dashboard = observer(() => {
 									{/* LINE-GRAPH */}
 									<div className="card grid-elem grid-item-1">
 										<div className="card-body" style={{ padding: 0 }}>
-											{showElement ? (
+											{showDeaths ? (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
@@ -164,7 +178,7 @@ export const Dashboard = observer(() => {
 									{/* COLUMN CHART */}
 									<div className="card grid-elem grid-item-2">
 										<div className="card-body" style={{ padding: 0 }}>
-											{showElement ? (
+											{showDeaths ? (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
@@ -185,7 +199,7 @@ export const Dashboard = observer(() => {
 								<div className="grid-elem-lower">
 									<div className="card grid-elem grid-item-3">
 										<div className="card-body" style={{ padding: 0 }}>
-											{showElement ? (
+											{showDeaths ? (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
@@ -204,17 +218,17 @@ export const Dashboard = observer(() => {
 									{/* PIE-CHART */}
 									<div className="card grid-elem grid-item-4">
 										<div className="card-body" style={{ padding: 0 }}>
-											{showElement ? (
+											{showDeaths ? (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
-													options={store.birthByGenderChartData}
+													options={store.deathByGenderChartData}
 												/>
 											) : (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
-													options={store.deathByGenderChartData}
+													options={store.birthByGenderChartData}
 												/>
 											)}
 										</div>
@@ -225,7 +239,7 @@ export const Dashboard = observer(() => {
 							{/* MAP CONTAINER */}
 							<div className="card map-container">
 								<div className="card-body">
-									<UgandaRegions />
+									<UgandaRegions showDeaths={showDeaths} />
 
 									{/* <HighchartsReact
 										containerProps={{ style: { height: "100%" } }}

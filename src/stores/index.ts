@@ -10,6 +10,11 @@ interface IData {
 }
 
 const defaultChartOptions = {
+	title: {
+		style: {
+			fontWeight: 'bold'
+	  }
+	},
 	series: [
 		{
 			data: [],
@@ -38,7 +43,7 @@ export class Store {
 
 	fetchDeathData = async () => {
 		const url =
-			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL,pe:2015;2016;2017;2018;2019;2020;2021;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL;hIYU0NgVZt8,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
@@ -70,7 +75,7 @@ export class Store {
 	}
 
 	get totalDeathsChartData() {
-		const totalDeaths = this.data[indicatorMap.totalDeaths] || [100];
+		const totalDeaths = this.data[indicatorMap.deathsNotified] || [100];
 
 		const periods = Object.keys(totalDeaths);
 		return {
@@ -79,6 +84,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Total Deaths",
 			},
 			xAxis: {
@@ -110,7 +116,8 @@ export class Store {
 				type: "line",
 			},
 			title: {
-				text: "Births by Gender",
+				...defaultChartOptions.title,
+				text: "Births",
 			},
 			plotOptions: {
 				series: {
@@ -129,17 +136,17 @@ export class Store {
 			},
 			series: [
 				{
-					name: "Male",
+					name: "Notified",
 					data: [60, 40, 30, 70, 71],
 					color: "red",
 				},
 				{
-					name: "Female",
+					name: "Registered",
 					data: [90, 58, 20, 40, 51],
 					color: "blue",
 				},
 				{
-					name: "Total",
+					name: "Certified",
 					data: [90 + 60, 58 + 40, 20 + 30, 40 + 70, 51 + 71],
 					color: "green",
 				},
@@ -148,13 +155,20 @@ export class Store {
 	}
 
 	get lineChartDeathData() {
+		const deathsNotified = this.data[indicatorMap.deathsNotified] || [20];
+		const deathsRegistered = this.data[indicatorMap.registeredDeaths] || [22];
+		const deathsCertified = this.data[indicatorMap.deathsCertified] || [12];
+
+		const periods = ["2019", "2020", "2021", "2022", "2023"];
+
 		return {
 			...defaultChartOptions,
 			chart: {
 				type: "line",
 			},
 			title: {
-				text: "Deaths by Gender",
+				...defaultChartOptions.title,
+				text: "Deaths",
 			},
 			plotOptions: {
 				series: {
@@ -169,22 +183,22 @@ export class Store {
 				},
 			},
 			xAxis: {
-				categories: ["2018", "2019", "2020", "2021", "2022"],
+				categories: periods,
 			},
 			series: [
 				{
-					name: "Male",
-					data: [50, 30, 20, 60, 61],
+					name: "Deaths Notified",
+					data: periods.map((pe) => parseFloat(deathsNotified[pe] ?? 0)),
 					color: "#00B5E2",
 				},
 				{
-					name: "Female",
-					data: [80, 48, 10, 30, 41],
+					name: "Deaths Registered",
+					data: periods.map((pe) => parseFloat(deathsRegistered[pe] ?? 0)),
 					color: "#F37F33",
 				},
 				{
-					name: "Total",
-					data: [80 + 70, 48 + 30, 10 + 20, 30 + 60, 41 + 61],
+					name: "Deaths Certified",
+					data: periods.map((pe) => parseFloat(deathsCertified[pe] ?? 0)),
 					color: "#980C71",
 				},
 			],
@@ -205,6 +219,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Births by Gender",
 			},
 			xAxis: {
@@ -239,7 +254,7 @@ export class Store {
 	get totalDeathsByGenderChartData() {
 		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [20];
 		const maleDeaths = this.data[indicatorMap.maleDeaths] || [30];
-		const totalDeaths = this.data[indicatorMap.totalDeaths] || [50];
+		const totalDeaths = this.data[indicatorMap.deathsNotified] || [50];
 
 		const periods = Object.keys(maleDeaths);
 
@@ -249,6 +264,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Deaths by Gender",
 			},
 			xAxis: {
@@ -285,6 +301,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Births by Gender",
 			},
 			xAxis: {
@@ -354,6 +371,7 @@ export class Store {
 				type: "column",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Deaths by Gender",
 			},
 			xAxis: {
@@ -439,6 +457,7 @@ export class Store {
 				type: "pie",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Birth by Gender",
 			},
 			tooltip: {
@@ -505,6 +524,7 @@ export class Store {
 				type: "pie",
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Deaths by Gender",
 			},
 			tooltip: {
@@ -555,6 +575,7 @@ export class Store {
 				enabled: false,
 			},
 			title: {
+				...defaultChartOptions.title,
 				text: "Region",
 			},
 			tooltip: {

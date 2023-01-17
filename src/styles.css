@@ -114,7 +114,7 @@
 	justify-content: space-between;
 	padding: 0.5% 0.5% 0.2% 0.5%;
 }
-.header-summary-divs-container div {
+.header-summary-divs-container .sum-card {
 	background: white;
 	width: 13.5%;
 	text-align: center;
