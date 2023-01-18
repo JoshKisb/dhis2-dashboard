@@ -8,15 +8,15 @@ export const birthIndicators = {
 
 export const deathIndicators = {
 	deathsNotified: "vU8Ofttev65",
-	femaleDeaths: "JDygTkWCxQU",
-	maleDeaths: "CFMGxtTBf6m",
 	deathsCertified: "T6TTjdahYxL",
 	registeredDeaths: "hIYU0NgVZt8",
 }
 
 export const indicatorMap = {
 	...birthIndicators,
-	...deathIndicators
+	...deathIndicators,
+	femaleDeaths: "JDygTkWCxQU",
+	maleDeaths: "CFMGxtTBf6m",
 };
 
 // just for reference

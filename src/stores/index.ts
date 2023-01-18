@@ -75,7 +75,7 @@ export class Store {
 	}
 
 	get totalDeathsChartData() {
-		const totalDeaths = this.data[indicatorMap.deathsNotified] || [100];
+		const totalDeaths = this.data[indicatorMap.deathsNotified] || [];
 
 		const periods = Object.keys(totalDeaths);
 		return {
@@ -94,7 +94,7 @@ export class Store {
 			series: [
 				{
 					name: "Total Deaths",
-					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
+					data: periods.map((pe) => parseFloat(totalDeaths[pe] ?? 0)),
 				},
 			],
 		};
@@ -103,13 +103,19 @@ export class Store {
 	get yearsData() {
 		const data = {};
 		Object.keys(this.data).forEach((dx) => {
-			data[dx] = this.data[dx]["2022"];
+			data[dx] = this.data[dx]["2023"];
 		});
 		return data;
 	}
 
 	// LINE-GRAPHS
 	get lineChartBirthData() {
+		const birthsNotified = this.data[indicatorMap.totalBirths] || [];
+		const birthsRegistered = [];
+		const birthsCertified = [];
+
+		const periods = ["2018", "2019", "2020", "2021", "2022", "2023"];
+
 		return {
 			...defaultChartOptions,
 			chart: {
@@ -132,22 +138,22 @@ export class Store {
 				},
 			},
 			xAxis: {
-				categories: ["2018", "2019", "2020", "2021", "2022"],
+				categories: periods,
 			},
 			series: [
 				{
 					name: "Notified",
-					data: [60, 40, 30, 70, 71],
+					data: periods.map((pe) => parseFloat(birthsNotified[pe] ?? 0)),
 					color: "red",
 				},
 				{
 					name: "Registered",
-					data: [90, 58, 20, 40, 51],
+					data: periods.map((pe) => parseFloat(birthsRegistered[pe] ?? 0)),
 					color: "blue",
 				},
 				{
 					name: "Certified",
-					data: [90 + 60, 58 + 40, 20 + 30, 40 + 70, 51 + 71],
+					data: periods.map((pe) => parseFloat(birthsCertified[pe] ?? 0)),
 					color: "green",
 				},
 			],
@@ -155,9 +161,9 @@ export class Store {
 	}
 
 	get lineChartDeathData() {
-		const deathsNotified = this.data[indicatorMap.deathsNotified] || [20];
-		const deathsRegistered = this.data[indicatorMap.registeredDeaths] || [22];
-		const deathsCertified = this.data[indicatorMap.deathsCertified] || [12];
+		const deathsNotified = this.data[indicatorMap.deathsNotified] || [];
+		const deathsRegistered = this.data[indicatorMap.registeredDeaths] || [];
+		const deathsCertified = this.data[indicatorMap.deathsCertified] || [];
 
 		const periods = ["2019", "2020", "2021", "2022", "2023"];
 
@@ -207,9 +213,9 @@ export class Store {
 
 	// COLUMN BAR
 	get totalBirthsByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [20];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [40];
-		const totalBirths = this.data[indicatorMap.totalBirths] || [60];
+		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.data[indicatorMap.maleBirths] || [];
+		const totalBirths = this.data[indicatorMap.totalBirths] || [];
 
 		const periods = Object.keys(maleBirths);
 
@@ -234,17 +240,17 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: periods.map((pe) => parseFloat(maleBirths[pe])),
+					data: periods.map((pe) => parseFloat(maleBirths[pe] ?? 0)),
 					color: "#EA1314",
 				},
 				{
 					name: "Female",
-					data: periods.map((pe) => parseFloat(femaleBirths[pe])),
+					data: periods.map((pe) => parseFloat(femaleBirths[pe] ?? 0)),
 					color: "#1735F1",
 				},
 				{
 					name: "Totals",
-					data: periods.map((pe) => parseFloat(totalBirths[pe])),
+					data: periods.map((pe) => parseFloat(totalBirths[pe] ?? 0)),
 					color: "#118347",
 				},
 			],
@@ -252,9 +258,9 @@ export class Store {
 	}
 
 	get totalDeathsByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [20];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [30];
-		const totalDeaths = this.data[indicatorMap.deathsNotified] || [50];
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
+		const totalDeaths = this.data[indicatorMap.deathsNotified] || [];
 
 		const periods = Object.keys(maleDeaths);
 
@@ -279,15 +285,15 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: periods.map((pe) => parseFloat(maleDeaths[pe])),
+					data: periods.map((pe) => parseFloat(maleDeaths[pe] ?? 0)),
 				},
 				{
 					name: "Female",
-					data: periods.map((pe) => parseFloat(femaleDeaths[pe])),
+					data: periods.map((pe) => parseFloat(femaleDeaths[pe] ?? 0)),
 				},
 				{
 					name: "Totals",
-					data: periods.map((pe) => parseFloat(totalDeaths[pe])),
+					data: periods.map((pe) => parseFloat(totalDeaths[pe] ?? 0)),
 				},
 			],
 		};
@@ -295,6 +301,10 @@ export class Store {
 
 	// STACKED GRAPH
 	get totalBirthStackedChartData() {
+		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.data[indicatorMap.maleBirths] || [];
+		const periods = ["2019", "2020", "2021", "2022", "2023"];
+
 		return {
 			...defaultChartOptions,
 			chart: {
@@ -305,7 +315,7 @@ export class Store {
 				text: "Births by Gender",
 			},
 			xAxis: {
-				categories: ["2018", "2019", "2020", "2021"],
+				categories: periods,
 			},
 			yAxis: {
 				min: 0,
@@ -352,12 +362,12 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [6, 4, 3, 7, 7],
+					data: periods.map((pe) => parseFloat(maleBirths[pe] ?? 0)),
 					color: "red",
 				},
 				{
 					name: "Female",
-					data: [9, 5, 2, 4, 5],
+					data: periods.map((pe) => parseFloat(femaleBirths[pe] ?? 0)),
 					color: "blue",
 				},
 			],
@@ -365,6 +375,10 @@ export class Store {
 	}
 
 	get totalDeathStackedChartData() {
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
+		const periods = ["2019", "2020", "2021", "2022", "2023"];
+
 		return {
 			...defaultChartOptions,
 			chart: {
@@ -375,7 +389,7 @@ export class Store {
 				text: "Deaths by Gender",
 			},
 			xAxis: {
-				categories: ["2018", "2019", "2020", "2021"],
+				categories: periods,
 			},
 			yAxis: {
 				min: 0,
@@ -388,8 +402,8 @@ export class Store {
 						fontWeight: "bold",
 						color:
 							// theme
-							(Highcharts.defaultOptions.title.style &&
-								Highcharts.defaultOptions.title.style.color) ||
+							(Highcharts.defaultOptions.title?.style &&
+								Highcharts.defaultOptions.title?.style.color) ||
 							"gray",
 						textOutline: "none",
 					},
@@ -422,12 +436,12 @@ export class Store {
 			series: [
 				{
 					name: "Male",
-					data: [5, 3, 2, 6, 6],
+					data: periods.map((pe) => parseFloat(maleDeaths[pe] ?? 0)),
 					color: "#00B5E2",
 				},
 				{
 					name: "Female",
-					data: [8, 4, 1, 3, 4],
+					data: periods.map((pe) => parseFloat(femaleDeaths[pe] ?? 0)),
 					color: "#F37F33",
 				},
 			],
@@ -436,8 +450,8 @@ export class Store {
 
 	// PIE-CHART
 	get birthByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [80];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [20];
+		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.data[indicatorMap.maleBirths] || [];
 		const totalFemaleBirths = Object.values(femaleBirths).reduce(
 			(acc: number, value: any) => acc + parseFloat(value),
 			0
@@ -485,14 +499,14 @@ export class Store {
 					data: [
 						{
 							name: "Female",
-							y: 60,
+							y: (totalFemaleBirths / total) * 100,
 							sliced: true,
 							selected: true,
 							color: "#2C6693",
 						},
 						{
 							name: "Male",
-							y: 40,
+							y: (totalMaleBirths / total) * 100,
 							color: "#118347",
 						},
 					],
@@ -502,8 +516,8 @@ export class Store {
 	}
 
 	get deathByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [35];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [65];
+		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
 
 		const totalFemaleDeaths = Object.values(femaleDeaths).reduce(
 			(acc: number, value: any) => acc + parseFloat(value),

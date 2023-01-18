@@ -116,7 +116,8 @@
 }
 .header-summary-divs-container .sum-card {
 	background: white;
-	width: 13.5%;
+	/* width: 13.5%; */
+	padding: 0 12px;
 	text-align: center;
 }
 .main-div {

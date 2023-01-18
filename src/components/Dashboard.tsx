@@ -129,11 +129,12 @@ export const Dashboard = observer(() => {
 											display: "flex",
 											alignItems: "center",
 											border: "1px solid rgba(0,0,0,.175)",
-											flexDirection: "column",
+											// flexDirection: "column",
 											borderRadius: "0.375rem",
 											justifyContent: "center",
 										}}
-									>
+										>
+										<p>{startCase(ky)}:</p>
 										<span
 											style={{
 												width: "100%",
@@ -144,7 +145,6 @@ export const Dashboard = observer(() => {
 												? store.yearsData[currentIndicators[ky]]
 												: "---"}
 										</span>
-										<span>{startCase(ky)}</span>
 									</div>
 								))}
 								</div>
