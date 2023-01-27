@@ -239,6 +239,7 @@ export const Dashboard = observer(() => {
 							{/* MAP CONTAINER */}
 							<div className="card map-container">
 								<div className="card-body">
+									
 									<UgandaRegions showDeaths={showDeaths} />
 
 									{/* <HighchartsReact

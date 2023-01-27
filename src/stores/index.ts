@@ -1,8 +1,9 @@
 import { createContext, useContext } from "react";
-import { makeAutoObservable } from "mobx";
+import { makeAutoObservable, toJS } from "mobx";
 import IDataEngine from "../utils/DataEngine";
 import { indicatorMap } from "../assets/indicators";
 import map from "../assets/Organisation_units.geo.json";
+import regionjson from "../assets/regions.json";
 import Highcharts from "highcharts";
 
 interface IData {
@@ -12,8 +13,8 @@ interface IData {
 const defaultChartOptions = {
 	title: {
 		style: {
-			fontWeight: 'bold'
-	  }
+			fontWeight: "bold",
+		},
 	},
 	series: [
 		{
@@ -28,6 +29,12 @@ const defaultChartOptions = {
 export class Store {
 	engine: IDataEngine;
 	data: any;
+	regions: any = null;
+	loadingRegions = false;
+	districts: any = null;
+	loadingDistricts = false;
+	regionData: any;
+	districtData: any;
 
 	constructor(engine: IDataEngine) {
 		makeAutoObservable(this, {}, { autoBind: true });
@@ -35,8 +42,7 @@ export class Store {
 	}
 
 	fetchBirthData = async () => {
-		const url =
-			"/api/38/analytics?dimension=dx:zkMVFHEPvzC;ihAAgZ8OjGE;Z64hUZUifEF,pe:2015;2016;2017;2018;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+		const url = "/api/38/analytics?dimension=dx:zkMVFHEPvzC;ihAAgZ8OjGE;Z64hUZUifEF,pe:2015;2016;2017;2018;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
@@ -48,8 +54,109 @@ export class Store {
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
 
+	fetchMapData = async (level: "region"|"district" = "region") => {
+		const lvl = level == "region" ? 2 : 3;
+		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.totalBirths},pe:2023,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
+		const res = await this.engine.link.fetch(durl).catch((err: any) => err);
+		const { headers, rows } = res;
+		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
+
+		let data = {};
+		rows.forEach((row) => {
+			const dx = row[indexes.dx];
+			const pe = row[indexes.pe];
+			const value = row[indexes.value];
+			const ou = row[indexes.ou]
+
+			if (!data[dx]) data[dx] = {};
+
+			data[dx][ou] = value;
+		});
+
+		console.log("data", data)
+
+		if (level == "region")
+			this.regionData = data;
+		else 
+			this.districtData = data;
+	}
+
+	fetchMapDistricts = async () => {
+		if (!!this.districts || !!this.loadingDistricts) return;
+		//const url = `/api/38/geoFeatures?ou=ou:SUvODYOcaVf;F1o6qBSx783;Dt6qdenPX1E;QBPg7KKCeoA;yx0ieyZNF0l;Wd1lV9Qdj4o;GIpyzaSuEgM;jdlbNUwJiKX;G0rlphd2tcD;DWPnYhoqza0;Dl9WvtvDs5V;IEU0FjDAhBP;r0GhWtmPHDj;JZhJ50nOirX;BD3XaQ7cQAp;LEVEL-3&displayProperty=NAME`
+		// const url = `/api/38/geoFeatures?ou=ou:akV6429SUqu;LEVEL-2&displayProperty=NAME`;
+		this.loadingDistricts = true;
+		const url = `api/38/organisationUnits.geojson?parent=akV6429SUqu&level=3`
+		const result = await this.engine.link.fetch(url).catch((err: any) => err);
+		console.log({ result })
+
+		// add id to geojson properties
+		this.districts = {
+			...result,
+			features: result.features.map(f => ({
+				...f,
+				properties: {
+					...f.properties,
+					id: f.id
+				}
+			}))
+		};
+		this.loadingDistricts = false;
+	}
+
+	fetchMapRegions = async () => {
+		if (!!this.regions || !!this.loadingRegions) return;
+		this.loadingRegions = true;
+		//const url = `/api/38/geoFeatures?ou=ou:SUvODYOcaVf;F1o6qBSx783;Dt6qdenPX1E;QBPg7KKCeoA;yx0ieyZNF0l;Wd1lV9Qdj4o;GIpyzaSuEgM;jdlbNUwJiKX;G0rlphd2tcD;DWPnYhoqza0;Dl9WvtvDs5V;IEU0FjDAhBP;r0GhWtmPHDj;JZhJ50nOirX;BD3XaQ7cQAp;LEVEL-3&displayProperty=NAME`
+		// const url = `/api/38/geoFeatures?ou=ou:akV6429SUqu;LEVEL-2&displayProperty=NAME`;
+		const url = `api/38/organisationUnits.geojson?parent=akV6429SUqu&level=2`
+		const result = await this.engine.link.fetch(url).catch((err: any) => err);
+		console.log({ result })
+
+		// add id to geojson properties
+		this.regions = {
+			...result,
+			features: result.features?.map(f => ({
+				...f,
+				properties: {
+					...f.properties,
+					id: f.id
+				}
+			}))
+		};
+		this.loadingRegions = false;
+		// this.regions = {
+		// 	type: "FeatureCollection",
+		// 	features: result.map((r) => ({
+		// 		type: "Feature",
+		// 		id: r.id,
+		// 		geometry: {
+		// 			type: "MultiPolygon",
+		// 			coordinates: JSON.parse(r.co), //.map(c => c.map(x => x.map(l => ({ lat: l[0], lng: l[1] })))),
+		// 		},
+		// 		properties: {
+		// 			type: "Polygon",
+		// 			id: r.id,
+		// 			name: r.na,
+		// 			hasCoordinatesDown: r.hcd,
+		// 			hasCoordinatesUp: r.hcu,
+		// 			level: r.le,
+		// 			grandParentParentGraph: "",
+		// 			grandParentId: "",
+		// 			parentGraph: r.pg,
+		// 			parentId: r.pi,
+		// 			parentName: r.pn,
+		// 			dimensions: r.dimensions,
+		// 		},
+		// 	})),
+		// };
+	};
+
 	loadData = async () => {
 		await Promise.all([this.fetchBirthData(), this.fetchDeathData()]);
+		this.fetchMapRegions();
+		this.fetchMapData("region")
+		this.fetchMapData("district")
 	};
 
 	// this method converts dhis meta from format
@@ -99,6 +206,19 @@ export class Store {
 			],
 		};
 	}
+
+	// get geoJSON() {
+	// 	return ({
+	// 		...this.regions,
+	// 		features: this.regions?.features.map(f => ({
+	// 			...f,
+	// 			geometry: {
+	// 				...f.geometry,
+	// 				coordinates: toJS(f.geometry.coordinates)
+	// 			}
+	// 		}))
+	// 	})
+	// }
 
 	get yearsData() {
 		const data = {};
@@ -328,9 +448,7 @@ export class Store {
 						fontWeight: "bold",
 						color:
 							// theme
-							(Highcharts.defaultOptions.title.style &&
-								Highcharts.defaultOptions.title.style.color) ||
-							"gray",
+							(Highcharts.defaultOptions.title.style && Highcharts.defaultOptions.title.style.color) || "gray",
 						textOutline: "none",
 					},
 				},
@@ -341,8 +459,7 @@ export class Store {
 				verticalAlign: "top",
 				y: 70,
 				floating: true,
-				backgroundColor:
-					Highcharts.defaultOptions.legend.backgroundColor || "white",
+				backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || "white",
 				borderColor: "#CCC",
 				borderWidth: 1,
 				shadow: false,
@@ -402,9 +519,7 @@ export class Store {
 						fontWeight: "bold",
 						color:
 							// theme
-							(Highcharts.defaultOptions.title?.style &&
-								Highcharts.defaultOptions.title?.style.color) ||
-							"gray",
+							(Highcharts.defaultOptions.title?.style && Highcharts.defaultOptions.title?.style.color) || "gray",
 						textOutline: "none",
 					},
 				},
@@ -415,8 +530,7 @@ export class Store {
 				verticalAlign: "top",
 				y: 70,
 				floating: true,
-				backgroundColor:
-					Highcharts.defaultOptions.legend.backgroundColor || "white",
+				backgroundColor: Highcharts.defaultOptions.legend.backgroundColor || "white",
 				borderColor: "#CCC",
 				borderWidth: 1,
 				shadow: false,
@@ -452,14 +566,8 @@ export class Store {
 	get birthByGenderChartData() {
 		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
 		const maleBirths = this.data[indicatorMap.maleBirths] || [];
-		const totalFemaleBirths = Object.values(femaleBirths).reduce(
-			(acc: number, value: any) => acc + parseFloat(value),
-			0
-		);
-		const totalMaleBirths = Object.values(maleBirths).reduce(
-			(acc: number, value: any) => acc + parseFloat(value),
-			0
-		);
+		const totalFemaleBirths = Object.values(femaleBirths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
+		const totalMaleBirths = Object.values(maleBirths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
 		const total = totalFemaleBirths + totalMaleBirths;
 
 		return {
@@ -519,14 +627,8 @@ export class Store {
 		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
 		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
 
-		const totalFemaleDeaths = Object.values(femaleDeaths).reduce(
-			(acc: number, value: any) => acc + parseFloat(value),
-			0
-		);
-		const totalMaleDeaths = Object.values(maleDeaths).reduce(
-			(acc: number, value: any) => acc + parseFloat(value),
-			0
-		);
+		const totalFemaleDeaths = Object.values(femaleDeaths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
+		const totalMaleDeaths = Object.values(maleDeaths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
 		const total = totalFemaleDeaths + totalMaleDeaths;
 
 		return {
@@ -589,17 +691,30 @@ export class Store {
 				enabled: false,
 			},
 			title: {
-				...defaultChartOptions.title,
-				text: "Region",
+				text: ''
+		  	},
+			chart: {
+				type: "map",
+				map: this.regions,
 			},
-			tooltip: {
-				headerFormat: "",
-				pointFormat:
-					"<b>{point.freq}</b><br><b>{point.keyword}</b>                      <br>lat: {point.lat}, lon: {point.lon}",
-			},
+			legend: {
+				align: 'left',
+				layout: 'vertical',
+				floating: true,
+			},	
+			mapNavigation: {
+				enabled: true
+			},	
+			colorAxis: {
+            tickPixelInterval: 10
+        	},	
+			// tooltip: {
+			// 	headerFormat: "",
+			// 	pointFormat: "<b>{point.freq}</b><br><b>{point.keyword}</b>                      <br>lat: {point.lat}, lon: {point.lon}",
+			// },
 			series: [
 				{
-					mapData: map,
+					mapData: this.regions,
 					data: [],
 					name: "Org Units",
 					dataLabels: {
