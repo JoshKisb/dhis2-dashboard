@@ -93,24 +93,30 @@ export const Dashboard = observer(() => {
 				{!loading && (
 					<>
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
-							<div className="marquee no-padding header-slider">
-								<p>
-									{`The ${showDeaths ? 'Deaths' : 'Births'} registry statistics`}
-									{Object.keys(currentIndicators).map((ky) => (
-										<>
-											<span> | {startCase(ky)}:</span>
-											<span
-												style={{
-													fontWeight: "800",
-												}}
-											>
-												{store.yearsData[currentIndicators[ky]]
-													? store.yearsData[currentIndicators[ky]]
-													: "---"}
-											</span>
-										</>
-									))}
-								</p>
+							<div className="no-padding header-slider"
+								 style={{
+									 backgroundImage: `url('https://objects.plydot.com/file/1016/ugflag.png')`,
+									 backgroundSize: 'cover',
+									 width: '100%',
+									 height: '100%'
+								 }}>
+								{/*<p>*/}
+								{/*	{`The ${showDeaths ? 'Deaths' : 'Births'} registry statistics`}*/}
+								{/*	{Object.keys(currentIndicators).map((ky) => (*/}
+								{/*		<>*/}
+								{/*			<span> | {startCase(ky)}:</span>*/}
+								{/*			<span*/}
+								{/*				style={{*/}
+								{/*					fontWeight: "800",*/}
+								{/*				}}*/}
+								{/*			>*/}
+								{/*				{store.yearsData[currentIndicators[ky]]*/}
+								{/*					? store.yearsData[currentIndicators[ky]]*/}
+								{/*					: "---"}*/}
+								{/*			</span>*/}
+								{/*		</>*/}
+								{/*	))}*/}
+								{/*</p>*/}
 							</div>
 
 							{/* SUMMARY CARDS */}
