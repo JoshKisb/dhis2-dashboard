@@ -724,7 +724,7 @@ export class Store {
 				enabled: true
 			},	
 			colorAxis: {
-            tickPixelInterval: 10
+            tickPixelInterval: 1000
         	},	
 			// tooltip: {
 			// 	headerFormat: "",
