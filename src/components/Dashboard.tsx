@@ -93,7 +93,7 @@ export const Dashboard = observer(() => {
 				{!loading && (
 					<>
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
-							<div className="marquee no-padding header-slider">
+							<div className="no-padding header-slider">
 								<p>
 									{`The ${showDeaths ? 'Deaths' : 'Births'} registry statistics`}
 									{Object.keys(currentIndicators).map((ky) => (
