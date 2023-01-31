@@ -56,7 +56,7 @@ export class Store {
 
 	fetchMapData = async (level: "region"|"district" = "region") => {
 		const lvl = level == "region" ? 2 : 3;
-		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.birthsNotified},pe:2023,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
+		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.birthsNotified},pe:2022,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
 		const res = await this.engine.link.fetch(durl).catch((err: any) => err);
 		const { headers, rows } = res;
 		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
