@@ -83,15 +83,22 @@ export class Store {
 
 	fetchMapDistricts = async () => {
 		if (!!this.districts || !!this.loadingDistricts) return;
+
+		const cached = localStorage.getItem("district_geojson")
 		//const url = `/api/38/geoFeatures?ou=ou:SUvODYOcaVf;F1o6qBSx783;Dt6qdenPX1E;QBPg7KKCeoA;yx0ieyZNF0l;Wd1lV9Qdj4o;GIpyzaSuEgM;jdlbNUwJiKX;G0rlphd2tcD;DWPnYhoqza0;Dl9WvtvDs5V;IEU0FjDAhBP;r0GhWtmPHDj;JZhJ50nOirX;BD3XaQ7cQAp;LEVEL-3&displayProperty=NAME`
 		// const url = `/api/38/geoFeatures?ou=ou:akV6429SUqu;LEVEL-2&displayProperty=NAME`;
+		if (!!cached) {
+			this.districts = JSON.parse(cached);
+			return;
+		}
+
 		this.loadingDistricts = true;
 		const url = `api/38/organisationUnits.geojson?parent=akV6429SUqu&level=3`
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		console.log({ result })
 
 		// add id to geojson properties
-		this.districts = {
+		const districts = {
 			...result,
 			features: result.features.map(f => ({
 				...f,
@@ -101,11 +108,20 @@ export class Store {
 				}
 			}))
 		};
+		this.districts = districts;
 		this.loadingDistricts = false;
+		localStorage.setItem("district_geojson", JSON.stringify(districts))
 	}
 
 	fetchMapRegions = async () => {
 		if (!!this.regions || !!this.loadingRegions) return;
+
+		const cached = localStorage.getItem("region_geojson");
+		if (!!cached) {
+			this.regions = JSON.parse(cached);
+			return;
+		}
+
 		this.loadingRegions = true;
 		//const url = `/api/38/geoFeatures?ou=ou:SUvODYOcaVf;F1o6qBSx783;Dt6qdenPX1E;QBPg7KKCeoA;yx0ieyZNF0l;Wd1lV9Qdj4o;GIpyzaSuEgM;jdlbNUwJiKX;G0rlphd2tcD;DWPnYhoqza0;Dl9WvtvDs5V;IEU0FjDAhBP;r0GhWtmPHDj;JZhJ50nOirX;BD3XaQ7cQAp;LEVEL-3&displayProperty=NAME`
 		// const url = `/api/38/geoFeatures?ou=ou:akV6429SUqu;LEVEL-2&displayProperty=NAME`;
@@ -114,7 +130,7 @@ export class Store {
 		console.log({ result })
 
 		// add id to geojson properties
-		this.regions = {
+		const regions = {
 			...result,
 			features: result.features?.map(f => ({
 				...f,
@@ -124,7 +140,9 @@ export class Store {
 				}
 			}))
 		};
+		this.regions = regions;
 		this.loadingRegions = false;
+		localStorage.setItem("region_geojson", JSON.stringify(regions))
 		// this.regions = {
 		// 	type: "FeatureCollection",
 		// 	features: result.map((r) => ({
