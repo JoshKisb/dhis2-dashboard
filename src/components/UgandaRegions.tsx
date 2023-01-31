@@ -23,7 +23,7 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 		console.log("ldata", ldata);
 		console.log("map", map);
 		return map?.features?.map((f) => {
-			const dx = showDeaths ? indicatorMap.deathsNotified : indicatorMap.totalBirths;
+			const dx = showDeaths ? indicatorMap.deathsNotified : indicatorMap.birthsNotified;
 			const data = ldata?.[dx]?.[f.id];
 
 			return { ou: f.id, value: data ?? 0 };

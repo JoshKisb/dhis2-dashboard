@@ -1,0 +1,36 @@
+{
+	"type": "FeatureCollection",
+	"features": [
+		{
+			"type": "Feature",
+			"id": "SUvODYOcaVf",
+			"geometry": {
+				"type": "Polygon",
+				"coordinates": [
+					[
+						[33.5505, 3.2815],
+						[33.5507, 3.2799]
+					]
+				]
+			},
+			"properties": {
+				"type": "Polygon",
+				"id": "SUvODYOcaVf",
+				"name": "Acholi",
+				"hasCoordinatesDown": true,
+				"hasCoordinatesUp": false,
+				"level": 2,
+				"grandParentParentGraph": "",
+				"grandParentId": "",
+				"parentGraph": "akV6429SUqu",
+				"parentId": "akV6429SUqu",
+				"parentName": "MOH - Uganda",
+				"dimensions": {},
+				"color": "#993404",
+				"range": "100 - 100",
+				"value": 100,
+				"radius": 17.5
+			}
+		}
+   ]
+}

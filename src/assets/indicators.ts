@@ -1,9 +1,7 @@
 
 
 export const birthIndicators = {
-	totalBirths: "Z64hUZUifEF",
-	femaleBirths: "zkMVFHEPvzC",
-	maleBirths: "ihAAgZ8OjGE",
+	birthsNotified: "Z64hUZUifEF",
 	birthsRegistered: "nq7BDH3XeKc",
 	birthsCertified: "DKym5hy9DA2",
 }
@@ -17,6 +15,8 @@ export const deathIndicators = {
 export const indicatorMap = {
 	...birthIndicators,
 	...deathIndicators,
+	femaleBirths: "zkMVFHEPvzC",
+	maleBirths: "ihAAgZ8OjGE",
 	femaleDeaths: "JDygTkWCxQU",
 	maleDeaths: "CFMGxtTBf6m",
 };

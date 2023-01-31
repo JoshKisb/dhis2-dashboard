@@ -56,7 +56,7 @@ export class Store {
 
 	fetchMapData = async (level: "region"|"district" = "region") => {
 		const lvl = level == "region" ? 2 : 3;
-		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.totalBirths},pe:2023,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
+		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.birthsNotified},pe:2023,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
 		const res = await this.engine.link.fetch(durl).catch((err: any) => err);
 		const { headers, rows } = res;
 		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
@@ -223,14 +223,14 @@ export class Store {
 	get yearsData() {
 		const data = {};
 		Object.keys(this.data).forEach((dx) => {
-			data[dx] = this.data[dx]["2023"];
+			data[dx] = this.data[dx]["2022"];
 		});
 		return data;
 	}
 
 	// LINE-GRAPHS
 	get lineChartBirthData() {
-		const birthsNotified = this.data[indicatorMap.totalBirths] || [];
+		const birthsNotified = this.data[indicatorMap.birthsNotified] || [];
 		const birthsRegistered = this.data[indicatorMap.birthsRegistered] || [];
 		const birthsCertified = this.data[indicatorMap.birthsCertified] || [];
 
@@ -335,7 +335,7 @@ export class Store {
 	get totalBirthsByGenderChartData() {
 		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
 		const maleBirths = this.data[indicatorMap.maleBirths] || [];
-		const totalBirths = this.data[indicatorMap.totalBirths] || [];
+		const totalBirths = this.data[indicatorMap.birthsNotified] || [];
 
 		const periods = Object.keys(maleBirths);
 
