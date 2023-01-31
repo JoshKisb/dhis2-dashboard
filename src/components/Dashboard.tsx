@@ -93,25 +93,12 @@ export const Dashboard = observer(() => {
 				{!loading && (
 					<>
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
-							<div className="marquee no-padding header-slider">
-								<p>
-									{`The ${showDeaths ? 'Deaths' : 'Births'} registry statistics`}
-									{Object.keys(currentIndicators).map((ky) => (
-										<>
-											<span> | {startCase(ky)}:</span>
-											<span
-												style={{
-													fontWeight: "800",
-												}}
-											>
-												{store.yearsData[currentIndicators[ky]]
-													? store.yearsData[currentIndicators[ky]]
-													: "---"}
-											</span>
-										</>
-									))}
-								</p>
-							</div>
+							<div className="flag-colors">
+      {/* Display the colors of the Ugandan flag */}
+      <div style={{ backgroundColor: "#000000", height: "10px", width: "100%" }} />
+      <div style={{ backgroundColor: "#FCDC04", height: "10px", width: "100%" }} />
+      <div style={{ backgroundColor: "#D90000", height: "10px", width: "100%" }} />
+    </div>
 
 							{/* SUMMARY CARDS */}
 							<div className="header-summary-divs-container">
@@ -133,6 +120,9 @@ export const Dashboard = observer(() => {
 											borderRadius: "0.375rem",
 											justifyContent: "center",
 										}}
+
+										//onMouseEnter={() => setHovered(true)}
+ 										//onMouseLeave={() => setHovered(false)}
 										>
 										<p>{startCase(ky)}:</p>
 										<span
