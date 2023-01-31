@@ -4,6 +4,8 @@ export const birthIndicators = {
 	totalBirths: "Z64hUZUifEF",
 	femaleBirths: "zkMVFHEPvzC",
 	maleBirths: "ihAAgZ8OjGE",
+	birthsRegistered: "nq7BDH3XeKc",
+	birthsCertified: "DKym5hy9DA2",
 }
 
 export const deathIndicators = {
@@ -54,4 +56,8 @@ const programIndicators: IndicatorInterface[] = [
 		id: "vU8Ofttev65",
 		displayName: "Total Number of  Deaths Notified",
 	},
+	{
+		id: "DKym5hy9DA2",
+		displayName: "Number Certified Live Births"
+	}
 ];

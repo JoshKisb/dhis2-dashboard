@@ -42,14 +42,14 @@ export class Store {
 	}
 
 	fetchBirthData = async () => {
-		const url = "/api/38/analytics?dimension=dx:zkMVFHEPvzC;ihAAgZ8OjGE;Z64hUZUifEF,pe:2015;2016;2017;2018;2022&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+		const url = "/api/38/analytics?dimension=dx:zkMVFHEPvzC;ihAAgZ8OjGE;Z64hUZUifEF;nq7BDH3XeKc;DKym5hy9DA2,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:akV6429SUqu&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
 
 	fetchDeathData = async () => {
 		const url =
-			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL;hIYU0NgVZt8,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:LEVEL-Sg9YZ6o7bCQ&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL;hIYU0NgVZt8,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:akV6429SUqu&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
@@ -231,8 +231,8 @@ export class Store {
 	// LINE-GRAPHS
 	get lineChartBirthData() {
 		const birthsNotified = this.data[indicatorMap.totalBirths] || [];
-		const birthsRegistered = [];
-		const birthsCertified = [];
+		const birthsRegistered = this.data[indicatorMap.birthsRegistered] || [];
+		const birthsCertified = this.data[indicatorMap.birthsCertified] || [];
 
 		const periods = ["2018", "2019", "2020", "2021", "2022", "2023"];
 
