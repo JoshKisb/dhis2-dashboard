@@ -121,8 +121,8 @@ export const Dashboard = observer(() => {
 											justifyContent: "center",
 										}}
 
-										//onMouseEnter={() => setHovered(true)}
- 										//onMouseLeave={() => setHovered(false)}
+										onMouseEnter={() => setHovered(true)}
+ 										onMouseLeave={() => setHovered(false)}
 										>
 										<p>{startCase(ky)}:</p>
 										<span
