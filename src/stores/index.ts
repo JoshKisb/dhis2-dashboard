@@ -6,9 +6,12 @@ import map from "../assets/Organisation_units.geo.json";
 import regionjson from "../assets/regions.json";
 import Highcharts from "highcharts";
 
+
 interface IData {
 	[pe: string]: string;
 }
+
+
 
 const defaultChartOptions = {
 	title: {
@@ -79,11 +82,12 @@ export class Store {
 			this.regionData = data;
 		else 
 			this.districtData = data;
-	}
-
-	fetchMapDistricts = async () => {
-		if (!!this.districts || !!this.loadingDistricts) return;
-
+		}
+		
+		fetchMapDistricts = async () => {
+			if (!!this.districts || !!this.loadingDistricts) return;
+			
+			
 		const cached = localStorage.getItem("district_geojson")
 		//const url = `/api/38/geoFeatures?ou=ou:SUvODYOcaVf;F1o6qBSx783;Dt6qdenPX1E;QBPg7KKCeoA;yx0ieyZNF0l;Wd1lV9Qdj4o;GIpyzaSuEgM;jdlbNUwJiKX;G0rlphd2tcD;DWPnYhoqza0;Dl9WvtvDs5V;IEU0FjDAhBP;r0GhWtmPHDj;JZhJ50nOirX;BD3XaQ7cQAp;LEVEL-3&displayProperty=NAME`
 		// const url = `/api/38/geoFeatures?ou=ou:akV6429SUqu;LEVEL-2&displayProperty=NAME`;
@@ -110,7 +114,11 @@ export class Store {
 		};
 		this.districts = districts;
 		this.loadingDistricts = false;
-		localStorage.setItem("district_geojson", JSON.stringify(districts))
+
+		const districtstr = JSON.stringify(districts);
+		var compressed = districtstr;
+
+		localStorage.setItem("district_geojson", compressed)
 	}
 
 	fetchMapRegions = async () => {
@@ -723,9 +731,19 @@ export class Store {
 			mapNavigation: {
 				enabled: true
 			},	
-			colorAxis: {
-            tickPixelInterval: 1000
-        	},	
+			colors: [
+				"#ffffcc",
+				"#ffeda0",
+				"#fed976",
+				"#feb24c",
+				"#fd8d3c",
+				"#fc4e2a",
+				"#e31a1c",
+				"#b10026",
+			],
+			// colorAxis: {
+         //    tickPixelInterval: 1000
+        	// },	
 			// tooltip: {
 			// 	headerFormat: "",
 			// 	pointFormat: "<b>{point.freq}</b><br><b>{point.keyword}</b>                      <br>lat: {point.lat}, lon: {point.lon}",

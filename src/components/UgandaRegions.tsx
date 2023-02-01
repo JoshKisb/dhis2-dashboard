@@ -16,6 +16,7 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 	const store = useStore();
 	const [level, setLevel] = useState<"region" | "district">("region");
 	const [loading, setLoading] = useState(true);
+	let max = 100000;
 
 	const geojson = useMemo(() => {
 		const map = level == "region" ? store.regions : store.districts;
@@ -25,6 +26,7 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 		return map?.features?.map((f) => {
 			const dx = showDeaths ? indicatorMap.deathsNotified : indicatorMap.birthsNotified;
 			const data = ldata?.[dx]?.[f.id];
+			if (data > max) max = data;
 
 			return { ou: f.id, value: data ?? 0 };
 		});
@@ -90,8 +92,37 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 	};
 
 	console.log("ge", geojson);
+	console.log("mx", max)
 	const opts = {
 		...store.mapChartOptions,
+		colorAxis: {
+			dataClassColor: 'category',
+			dataClasses: [
+				 {
+					  to: 500
+				 }, {
+					  from: 500,
+					  to: 1000
+				}, {
+						from: 1000,
+						to: 5000
+				 }, {
+					  from: 5000,
+					  to: 10000
+				 }, {
+					  from: 10000,
+					  to: 20000
+				 }, {
+					  from: 20000,
+					  to: 50000
+				 }, {
+					  from: 50000,
+					  to: 100000
+				 }, {
+					  from: 100000
+				 }
+			]
+	  },
 		// colorAxis: {
 		// min: 0,
 		// max: 1000,
