@@ -15,7 +15,7 @@ export const deathIndicators = {
 export const indicatorMap = {
 	...birthIndicators,
 	...deathIndicators,
-	femaleBirths: "zkMVFHEPvzC",
+	femaleBirths: "LcAGxRIRG1m",
 	maleBirths: "ihAAgZ8OjGE",
 	femaleDeaths: "JDygTkWCxQU",
 	maleDeaths: "CFMGxtTBf6m",
