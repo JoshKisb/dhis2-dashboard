@@ -10,11 +10,13 @@ import highchartsMap from "highcharts/modules/map";
 import { indicatorMap } from "../assets/indicators";
 import { observer } from "mobx-react-lite";
 
-interface Props {}
+interface Props {
+	showDeaths: boolean
+}
 
-export const UgandaRegions = observer(({ showDeaths }) => {
+export const UgandaRegions: React.FC<Props> = observer(({ showDeaths }) => {
 	const store = useStore();
-	const [level, setLevel] = useState<"region" | "district">("region");
+	const [level, setLevel] = useState<"region" | "district">("district");
 	const [loading, setLoading] = useState(true);
 	let max = 100000;
 
@@ -92,37 +94,50 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 	};
 
 	console.log("ge", geojson);
-	console.log("mx", max)
+	console.log("mx", max);
+
+	const handleClick = (e) => {
+		console.log(e)
+		store.setSelectedOrg(e.id, e.name);
+	}
+
 	const opts = {
 		...store.mapChartOptions,
 		colorAxis: {
-			dataClassColor: 'category',
+			dataClassColor: "category",
 			dataClasses: [
-				 {
-					  to: 500
-				 }, {
-					  from: 500,
-					  to: 1000
-				}, {
-						from: 1000,
-						to: 5000
-				 }, {
-					  from: 5000,
-					  to: 10000
-				 }, {
-					  from: 10000,
-					  to: 20000
-				 }, {
-					  from: 20000,
-					  to: 50000
-				 }, {
-					  from: 50000,
-					  to: 100000
-				 }, {
-					  from: 100000
-				 }
-			]
-	  },
+				{
+					to: 500,
+				},
+				{
+					from: 500,
+					to: 1000,
+				},
+				{
+					from: 1000,
+					to: 5000,
+				},
+				{
+					from: 5000,
+					to: 10000,
+				},
+				{
+					from: 10000,
+					to: 20000,
+				},
+				{
+					from: 20000,
+					to: 50000,
+				},
+				{
+					from: 50000,
+					to: 100000,
+				},
+				{
+					from: 100000,
+				},
+			],
+		},
 		// colorAxis: {
 		// min: 0,
 		// max: 1000,
@@ -139,6 +154,17 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 			align: "center",
 			layout: "horizontal",
 			floating: false,
+		},
+		plotOptions: {
+			series: {
+				point: {
+					events: {
+						click: function() {
+							handleClick(this)
+						}
+					},
+				},
+			},
 		},
 		series: [
 			{
@@ -205,9 +231,9 @@ export const UgandaRegions = observer(({ showDeaths }) => {
 					<option value="district">District</option>
 				</select>
 			</p>
-			{!loading ? 
-			<HighchartsReact containerProps={{ style: { height: "100%" } }} highcharts={Highcharts} constructorType={"mapChart"} options={opts} /> 
-			: (
+			{!loading ? (
+				<HighchartsReact containerProps={{ style: { height: "100%" } }} highcharts={Highcharts} constructorType={"mapChart"} options={opts} />
+			) : (
 				<div className="d-flex justify-content-center align-items-center">
 					<div className="spinner-border" role="status"></div>
 				</div>

@@ -54,13 +54,13 @@ export const Dashboard = observer(() => {
 			window["proj4"] = window["proj4"] || proj4;
 		}
 
-		setLoading(true);
+		
 		store.loadData().finally(() => {
-			setLoading(false);
-
+		
 			console.log("opts", store.totalDeathsChartData);
 		});
 	}, []);
+
 
 	const currentIndicators = showDeaths ? deathIndicators: birthIndicators;
 
@@ -76,7 +76,7 @@ export const Dashboard = observer(() => {
 					paddingRight: "0px",
 				}}
 			>
-				{loading && (
+				{store.loadingData && (
 					<div className="row">
 						<div className="col-12 d-flex justify-content-center">
 							<div
@@ -90,7 +90,7 @@ export const Dashboard = observer(() => {
 					</div>
 				)}
 
-				{!loading && (
+				{!store.loadingData && (
 					<>
 						<div className="header-div" style={{ backgroundColor: "#F3F2EF" }}>
 							<div className="flag-colors">
@@ -103,8 +103,8 @@ export const Dashboard = observer(() => {
 							{/* SUMMARY CARDS */}
 							<div className="header-summary-divs-container">
 								<VerticalSwitch options={["Births", "Deaths"]} onChange={toggleBirths} />
+								{!!store.selectedOrgName && <h4>{store.selectedOrgName}</h4>}
 								<div style={{
-									flex: 1,
 									display: "flex",
 									justifyContent: "flex-end"
 								}}>
@@ -121,10 +121,9 @@ export const Dashboard = observer(() => {
 											justifyContent: "center",
 										}}
 
-										onMouseEnter={() => setHovered(true)}
- 										onMouseLeave={() => setHovered(false)}
+										
 										>
-										<p>{startCase(ky)}:</p>
+										<p className="mb-0">{startCase(ky)}:</p>
 										<span
 											style={{
 												width: "100%",

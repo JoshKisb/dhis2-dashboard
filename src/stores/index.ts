@@ -31,6 +31,7 @@ const defaultChartOptions = {
 
 export class Store {
 	engine: IDataEngine;
+	loadingData: boolean = true;
 	data: any;
 	regions: any = null;
 	loadingRegions = false;
@@ -38,21 +39,37 @@ export class Store {
 	loadingDistricts = false;
 	regionData: any;
 	districtData: any;
+	selectedOrg: string|null = null;
+	selectedOrgName: string|null = null;
 
 	constructor(engine: IDataEngine) {
 		makeAutoObservable(this, {}, { autoBind: true });
 		this.engine = engine;
 	}
 
+	setSelectedOrg = async (orgunit, name) => {
+		this.loadingData = true;
+		this.selectedOrg = orgunit;
+		this.selectedOrgName = name;
+
+		await Promise.all([
+			this.fetchBirthData(), 
+			this.fetchDeathData()
+		]);
+		this.loadingData = false;
+	}
+
 	fetchBirthData = async () => {
-		const url = "/api/38/analytics?dimension=dx:LcAGxRIRG1m;ihAAgZ8OjGE;Z64hUZUifEF;nq7BDH3XeKc;DKym5hy9DA2,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:akV6429SUqu&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+		const ou = this.selectedOrg ?? "akV6429SUqu";
+		const url = `/api/38/analytics?dimension=dx:LcAGxRIRG1m;ihAAgZ8OjGE;Z64hUZUifEF;nq7BDH3XeKc;DKym5hy9DA2,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:${ou}&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
 
 	fetchDeathData = async () => {
+		const ou = this.selectedOrg ?? "akV6429SUqu";
 		const url =
-			"/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL;hIYU0NgVZt8,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:akV6429SUqu&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false";
+			`/api/38/analytics?dimension=dx:CFMGxtTBf6m;JDygTkWCxQU;vU8Ofttev65;T6TTjdahYxL;hIYU0NgVZt8,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:${ou}&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 	};
@@ -179,8 +196,11 @@ export class Store {
 	};
 
 	loadData = async () => {
+		this.loadingData = true;
 		await Promise.all([this.fetchBirthData(), this.fetchDeathData()]);
+		this.loadingData = false;
 		this.fetchMapRegions();
+		this.fetchMapDistricts();
 		this.fetchMapData("region")
 		this.fetchMapData("district")
 	};
