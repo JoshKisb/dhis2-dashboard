@@ -41,22 +41,26 @@ export class Store {
 	districtData: any;
 	selectedOrg: string|null = null;
 	selectedOrgName: string|null = null;
+	selectedOrgData: any = null;
 
 	constructor(engine: IDataEngine) {
 		makeAutoObservable(this, {}, { autoBind: true });
 		this.engine = engine;
 	}
 
-	setSelectedOrg = async (orgunit, name) => {
-		this.loadingData = true;
-		this.selectedOrg = orgunit;
-		this.selectedOrgName = name;
+	setSelectedOrg = async (orgunit, name, oulevel) => {
+		this.selectedOrgName = name;		
+		
 
-		await Promise.all([
-			this.fetchBirthData(), 
-			this.fetchDeathData()
-		]);
-		this.loadingData = false;
+		const source = oulevel == "district" ? this.districtData: this.regionData;
+		const data = {} 
+		Object.keys(source).forEach(dx => {
+			data[dx] = source[dx][orgunit]
+		})
+		console.log("sld", data)
+		this.selectedOrgData = data;
+
+		this.selectedOrg = orgunit;
 	}
 
 	fetchBirthData = async () => {
@@ -76,7 +80,8 @@ export class Store {
 
 	fetchMapData = async (level: "region"|"district" = "region") => {
 		const lvl = level == "region" ? 2 : 3;
-		const durl = `/api/38/analytics?dimension=dx:${indicatorMap.deathsNotified};${indicatorMap.birthsNotified},pe:2022,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
+		const indicators = Object.values(indicatorMap).join(";")
+		const durl = `/api/38/analytics?dimension=dx:${indicators},pe:2018;2019;2020;2021;2022;2023,ou:LEVEL-${lvl}&ouMode=DESCENDANTS&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false&aggregationType=COUNT`;
 		const res = await this.engine.link.fetch(durl).catch((err: any) => err);
 		const { headers, rows } = res;
 		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
@@ -89,8 +94,9 @@ export class Store {
 			const ou = row[indexes.ou]
 
 			if (!data[dx]) data[dx] = {};
+			if (!data[dx][ou]) data[dx][ou] = {};
 
-			data[dx][ou] = value;
+			data[dx][ou][pe] = value;
 		});
 
 		console.log("data", data)
@@ -99,10 +105,10 @@ export class Store {
 			this.regionData = data;
 		else 
 			this.districtData = data;
-		}
+	}
 		
-		fetchMapDistricts = async () => {
-			if (!!this.districts || !!this.loadingDistricts) return;
+	fetchMapDistricts = async () => {
+		if (!!this.districts || !!this.loadingDistricts) return;
 			
 			
 		const cached = localStorage.getItem("district_geojson")
@@ -228,7 +234,7 @@ export class Store {
 	}
 
 	get totalDeathsChartData() {
-		const totalDeaths = this.data[indicatorMap.deathsNotified] || [];
+		const totalDeaths = this.ouData[indicatorMap.deathsNotified] || [];
 
 		const periods = Object.keys(totalDeaths);
 		return {
@@ -266,19 +272,26 @@ export class Store {
 	// 	})
 	// }
 
+	get ouData() {
+		if (!!this.selectedOrg) {
+			return this.selectedOrgData;
+		}
+		return this.data;
+	}
+
 	get yearsData() {
 		const data = {};
-		Object.keys(this.data).forEach((dx) => {
-			data[dx] = this.data[dx]["2022"];
+		Object.keys(this.ouData).forEach((dx) => {
+			data[dx] = this.ouData[dx]?.["2022"];
 		});
 		return data;
 	}
 
 	// LINE-GRAPHS
 	get lineChartBirthData() {
-		const birthsNotified = this.data[indicatorMap.birthsNotified] || [];
-		const birthsRegistered = this.data[indicatorMap.birthsRegistered] || [];
-		const birthsCertified = this.data[indicatorMap.birthsCertified] || [];
+		const birthsNotified = this.ouData[indicatorMap.birthsNotified] || [];
+		const birthsRegistered = this.ouData[indicatorMap.birthsRegistered] || [];
+		const birthsCertified = this.ouData[indicatorMap.birthsCertified] || [];
 
 		const periods = ["2018", "2019", "2020", "2021", "2022", "2023"];
 
@@ -327,9 +340,9 @@ export class Store {
 	}
 
 	get lineChartDeathData() {
-		const deathsNotified = this.data[indicatorMap.deathsNotified] || [];
-		const deathsRegistered = this.data[indicatorMap.registeredDeaths] || [];
-		const deathsCertified = this.data[indicatorMap.deathsCertified] || [];
+		const deathsNotified = this.ouData[indicatorMap.deathsNotified] || [];
+		const deathsRegistered = this.ouData[indicatorMap.registeredDeaths] || [];
+		const deathsCertified = this.ouData[indicatorMap.deathsCertified] || [];
 
 		const periods = ["2019", "2020", "2021", "2022", "2023"];
 
@@ -379,9 +392,9 @@ export class Store {
 
 	// COLUMN BAR
 	get totalBirthsByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [];
-		const totalBirths = this.data[indicatorMap.birthsNotified] || [];
+		const femaleBirths = this.ouData[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.ouData[indicatorMap.maleBirths] || [];
+		const totalBirths = this.ouData[indicatorMap.birthsNotified] || [];
 
 		const periods = Object.keys(maleBirths);
 
@@ -424,9 +437,9 @@ export class Store {
 	}
 
 	get totalDeathsByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
-		const totalDeaths = this.data[indicatorMap.deathsNotified] || [];
+		const femaleDeaths = this.ouData[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.ouData[indicatorMap.maleDeaths] || [];
+		const totalDeaths = this.ouData[indicatorMap.deathsNotified] || [];
 
 		const periods = Object.keys(maleDeaths);
 
@@ -467,8 +480,8 @@ export class Store {
 
 	// STACKED GRAPH
 	get totalBirthStackedChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [];
+		const femaleBirths = this.ouData[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.ouData[indicatorMap.maleBirths] || [];
 		const periods = ["2019", "2020", "2021", "2022", "2023"];
 
 		return {
@@ -538,8 +551,8 @@ export class Store {
 	}
 
 	get totalDeathStackedChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
+		const femaleDeaths = this.ouData[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.ouData[indicatorMap.maleDeaths] || [];
 		const periods = ["2019", "2020", "2021", "2022", "2023"];
 
 		return {
@@ -610,8 +623,8 @@ export class Store {
 
 	// PIE-CHART
 	get birthByGenderChartData() {
-		const femaleBirths = this.data[indicatorMap.femaleBirths] || [];
-		const maleBirths = this.data[indicatorMap.maleBirths] || [];
+		const femaleBirths = this.ouData[indicatorMap.femaleBirths] || [];
+		const maleBirths = this.ouData[indicatorMap.maleBirths] || [];
 		const totalFemaleBirths = Object.values(femaleBirths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
 		const totalMaleBirths = Object.values(maleBirths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
 		const total = totalFemaleBirths + totalMaleBirths;
@@ -670,8 +683,8 @@ export class Store {
 	}
 
 	get deathByGenderChartData() {
-		const femaleDeaths = this.data[indicatorMap.femaleDeaths] || [];
-		const maleDeaths = this.data[indicatorMap.maleDeaths] || [];
+		const femaleDeaths = this.ouData[indicatorMap.femaleDeaths] || [];
+		const maleDeaths = this.ouData[indicatorMap.maleDeaths] || [];
 
 		const totalFemaleDeaths = Object.values(femaleDeaths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);
 		const totalMaleDeaths = Object.values(maleDeaths).reduce((acc: number, value: any) => acc + parseFloat(value), 0);

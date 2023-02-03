@@ -27,7 +27,7 @@ export const UgandaRegions: React.FC<Props> = observer(({ showDeaths }) => {
 		console.log("map", map);
 		return map?.features?.map((f) => {
 			const dx = showDeaths ? indicatorMap.deathsNotified : indicatorMap.birthsNotified;
-			const data = ldata?.[dx]?.[f.id];
+			const data = ldata?.[dx]?.[f.id]?.["2022"];
 			if (data > max) max = data;
 
 			return { ou: f.id, value: data ?? 0 };
@@ -98,7 +98,7 @@ export const UgandaRegions: React.FC<Props> = observer(({ showDeaths }) => {
 
 	const handleClick = (e) => {
 		console.log(e)
-		store.setSelectedOrg(e.id, e.name);
+		store.setSelectedOrg(e.id, e.name, level);
 	}
 
 	const opts = {
