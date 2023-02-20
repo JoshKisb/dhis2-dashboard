@@ -63,11 +63,16 @@ export class Store {
 		this.selectedOrg = orgunit;
 	}
 
-	fetchBirthData = async () => {
+	fetchBirthData = async () => {		
 		const ou = this.selectedOrg ?? "akV6429SUqu";
-		const url = `/api/38/analytics?dimension=dx:LcAGxRIRG1m;ihAAgZ8OjGE;Z64hUZUifEF;nq7BDH3XeKc;DKym5hy9DA2,pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:${ou}&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
+		const extraindicators = [indicatorMap.tbirthsCertified, indicatorMap.tbirthsNotified, indicatorMap.tbirthsProjection, indicatorMap.tbirthsRegistered];
+		const url = `/api/38/analytics?dimension=dx:d7pS20J9g1J;LcAGxRIRG1m;ihAAgZ8OjGE;Z64hUZUifEF;nq7BDH3XeKc;DKym5hy9DA2;${extraindicators.join(";")},pe:2015;2016;2017;2018;2019;2020;2021;2022;2023&filter=ou:${ou}&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
+
+		const url2 = `/api/38/analytics?dimension=kQ3qjfL2TKg:Yx4GBhbQKMM;FGQBsDGjTLh,pe:2018;2019;2020;2021;2022&filter=ou:USER_ORGUNIT&filter=dx:md7brKHLz83&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
+		const result2 = await this.engine.link.fetch(url2).catch((err: any) => err);
+		this.data = { ...this.data, ...this.processDataResults(result2, "kQ3qjfL2TKg") };
 	};
 
 	fetchDeathData = async () => {
@@ -215,13 +220,13 @@ export class Store {
 	// { headers: [], rows: [] }
 	// to the format
 	// {dx1: {pe: value, pe: value}, dx2: {....
-	private processDataResults(results) {
+	private processDataResults(results, dxkey = "dx") {
 		const { headers, rows } = results;
 		const indexes = Object.fromEntries(headers.map((h, idx) => [h.name, idx]));
 		const data = {};
 
 		rows.forEach((row) => {
-			const dx = row[indexes.dx];
+			const dx = row[indexes[dxkey]];
 			const pe = row[indexes.pe];
 			const value = row[indexes.value];
 
@@ -289,11 +294,133 @@ export class Store {
 
 	// LINE-GRAPHS
 	get lineChartBirthData() {
-		const birthsNotified = this.ouData[indicatorMap.birthsNotified] || [];
-		const birthsRegistered = this.ouData[indicatorMap.birthsRegistered] || [];
-		const birthsCertified = this.ouData[indicatorMap.birthsCertified] || [];
+		const birthsNotified = this.ouData[indicatorMap.tbirthsNotified] || [];
 
-		const periods = ["2018", "2019", "2020", "2021", "2022", "2023"];
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "line",
+			},
+			title: {
+				...defaultChartOptions.title,
+				text: "Total Births Notified",
+			},
+			plotOptions: {
+				series: {
+					label: {
+						connectorAllowed: false,
+					},
+				},
+			},
+			yAxis: {
+				title: {
+					text: "Numbers in thousands",
+				},
+			},
+			xAxis: {
+				categories: periods,
+			},
+			series: [
+				{
+					name: "MVRS Births Notified",
+					data: periods.map((pe) => parseFloat(birthsNotified[pe] ?? 0)),
+					color: "red",
+				},				
+			],
+		};
+	}
+
+	get lineChart2BirthData() {
+		const birthsProjection = this.ouData[indicatorMap.tbirthsProjection] || [];
+		const birthsRegistered = this.ouData[indicatorMap.tbirthsRegistered] || [];
+
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "line",
+			},
+			title: {
+				...defaultChartOptions.title,
+				text: "Total Birth Registrations Vs UBOS Projection",
+			},
+			plotOptions: {
+				series: {
+					label: {
+						connectorAllowed: false,
+					},
+				},
+			},
+			yAxis: {
+				title: {
+					text: "Numbers in thousands",
+				},
+			},
+			xAxis: {
+				categories: periods,
+			},
+			series: [
+				{
+					name: "UBOS Births Projection",
+					data: periods.map((pe) => parseFloat(birthsProjection[pe] ?? 0)),
+					color: "orange",
+				},			
+				{
+					name: "MVRS Births Registered",
+					data: periods.map((pe) => parseFloat(birthsRegistered[pe] ?? 0)),
+					color: "blue",
+				},				
+			],
+		};
+	}
+
+	get lineChart3BirthData() {
+		const birthsCertified = this.ouData[indicatorMap.tbirthsCertified] || [];
+
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
+
+		return {
+			...defaultChartOptions,
+			chart: {
+				type: "line",
+			},
+			title: {
+				...defaultChartOptions.title,
+				text: "Total Births Certified",
+			},
+			plotOptions: {
+				series: {
+					label: {
+						connectorAllowed: false,
+					},
+				},
+			},
+			yAxis: {
+				title: {
+					text: "Numbers in thousands",
+				},
+			},
+			xAxis: {
+				categories: periods,
+			},
+			series: [
+				{
+					name: "MVRS Births Certified",
+					data: periods.map((pe) => parseFloat(birthsCertified[pe] ?? 0)),
+					color: "red",
+				},				
+			],
+		};
+	}
+
+	get lineChart4BirthData() {
+		const i2 = this.ouData[indicatorMap.i2] || [];
+		const i3 = this.ouData[indicatorMap.i3] || [];
+
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
 
 		return {
 			...defaultChartOptions,
@@ -321,23 +448,20 @@ export class Store {
 			},
 			series: [
 				{
-					name: "Notified",
-					data: periods.map((pe) => parseFloat(birthsNotified[pe] ?? 0)),
-					color: "red",
-				},
+					name: "i2",
+					data: periods.map((pe) => parseFloat(i2[pe] ?? 0)),
+					color: "orange",
+				},		
 				{
-					name: "Registered",
-					data: periods.map((pe) => parseFloat(birthsRegistered[pe] ?? 0)),
-					color: "blue",
-				},
-				{
-					name: "Certified",
-					data: periods.map((pe) => parseFloat(birthsCertified[pe] ?? 0)),
+					name: "i3",
+					data: periods.map((pe) => parseFloat(i3[pe] ?? 0)),
 					color: "green",
-				},
+				},				
 			],
 		};
 	}
+
+	
 
 	get lineChartDeathData() {
 		const deathsNotified = this.ouData[indicatorMap.deathsNotified] || [];
@@ -480,9 +604,9 @@ export class Store {
 
 	// STACKED GRAPH
 	get totalBirthStackedChartData() {
-		const femaleBirths = this.ouData[indicatorMap.femaleBirths] || [];
-		const maleBirths = this.ouData[indicatorMap.maleBirths] || [];
-		const periods = ["2019", "2020", "2021", "2022", "2023"];
+		const i2 = this.ouData[indicatorMap.i2] || [];
+		const i3 = this.ouData[indicatorMap.i3] || [];
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
 
 		return {
 			...defaultChartOptions,
@@ -491,7 +615,7 @@ export class Store {
 			},
 			title: {
 				...defaultChartOptions.title,
-				text: "Births by Gender",
+				text: "Total Births",
 			},
 			xAxis: {
 				categories: periods,
@@ -537,15 +661,16 @@ export class Store {
 			},
 			series: [
 				{
-					name: "Male",
-					data: periods.map((pe) => parseFloat(maleBirths[pe] ?? 0)),
-					color: "red",
+					name: "i2",
+					data: periods.map((pe) => parseFloat(i2[pe] ?? 0)),
+					color: "green",
 				},
 				{
-					name: "Female",
-					data: periods.map((pe) => parseFloat(femaleBirths[pe] ?? 0)),
-					color: "blue",
-				},
+					name: "i3",
+					data: periods.map((pe) => parseFloat(i3[pe] ?? 0)),
+					color: "orange",
+				},				
+				
 			],
 		};
 	}

@@ -163,16 +163,41 @@ export const Dashboard = observer(() => {
 											)}
 										</div>
 									</div>
-
-									{/* COLUMN CHART */}
-									<div className="card grid-elem grid-item-2">
+									<div className="card grid-elem grid-item-1">
 										<div className="card-body" style={{ padding: 0 }}>
 											{showDeaths ? (
 												<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.totalDeathsByGenderChartData}
+											/>
+											) : (
+												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}
-													options={store.totalDeathsByGenderChartData}
+													options={store.lineChart2BirthData}
 												/>
+											)}
+										</div>
+									</div>
+
+									<div className="card grid-elem grid-item-1">
+										<div className="card-body" style={{ padding: 0 }}>
+											{!showDeaths  && (
+												<HighchartsReact
+													containerProps={{ style: { height: "100%" } }}
+													highcharts={Highcharts}
+													options={store.lineChart3BirthData}
+												/>
+											)}
+										</div>
+									</div>
+
+									{/* COLUMN CHART */}
+									{/* <div className="card grid-elem grid-item-2">
+										<div className="card-body" style={{ padding: 0 }}>
+											{showDeaths ? (
+												
 											) : (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
@@ -181,7 +206,7 @@ export const Dashboard = observer(() => {
 												/>
 											)}
 										</div>
-									</div>
+									</div> */}
 								</div>
 
 								{/* STACKED-CHART */}

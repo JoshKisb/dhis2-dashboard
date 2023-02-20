@@ -12,13 +12,25 @@ export const deathIndicators = {
 	registeredDeaths: "hIYU0NgVZt8",
 }
 
+export const chart4 = {
+	i2: "Yx4GBhbQKMM",
+	i3: "FGQBsDGjTLh",
+}
+
 export const indicatorMap = {
 	...birthIndicators,
 	...deathIndicators,
+	ubosProjections: "d7pS20J9g1J",
 	femaleBirths: "LcAGxRIRG1m",
 	maleBirths: "ihAAgZ8OjGE",
 	femaleDeaths: "JDygTkWCxQU",
 	maleDeaths: "CFMGxtTBf6m",
+
+	tbirthsNotified: "F2XcahLFxzP",
+	tbirthsProjection: "d7pS20J9g1J",
+	tbirthsRegistered: "md7brKHLz83",
+	tbirthsCertified: "SMuLVvnPIpm",
+	...chart4
 };
 
 // just for reference
