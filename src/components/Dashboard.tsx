@@ -123,7 +123,7 @@ export const Dashboard = observer(() => {
 
 										
 										>
-										<p className="mb-0">{startCase(ky)}:</p>
+										<p className="mb-0">{startCase(ky.replace(/^t/, ''))}:</p>
 										<span
 											style={{
 												width: "100%",
@@ -169,7 +169,7 @@ export const Dashboard = observer(() => {
 												<HighchartsReact
 												containerProps={{ style: { height: "100%" } }}
 												highcharts={Highcharts}
-												options={store.totalDeathsByGenderChartData}
+												options={store.lineChart2DeathData}
 											/>
 											) : (
 												<HighchartsReact
@@ -183,7 +183,13 @@ export const Dashboard = observer(() => {
 
 									<div className="card grid-elem grid-item-1">
 										<div className="card-body" style={{ padding: 0 }}>
-											{!showDeaths  && (
+											{showDeaths  ? (
+												<HighchartsReact
+												containerProps={{ style: { height: "100%" } }}
+												highcharts={Highcharts}
+												options={store.lineChart3DeathData}
+											/>
+											) : (
 												<HighchartsReact
 													containerProps={{ style: { height: "100%" } }}
 													highcharts={Highcharts}

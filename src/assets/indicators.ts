@@ -1,20 +1,20 @@
 
 
 export const birthIndicators = {
-	birthsNotified: "Z64hUZUifEF",
-	birthsRegistered: "nq7BDH3XeKc",
-	birthsCertified: "DKym5hy9DA2",
+	tbirthsNotified: "F2XcahLFxzP",
+	tbirthsRegistered: "md7brKHLz83",
+	tbirthsCertified: "SMuLVvnPIpm",
 }
 
 export const deathIndicators = {
-	deathsNotified: "vU8Ofttev65",
-	deathsCertified: "T6TTjdahYxL",
-	registeredDeaths: "hIYU0NgVZt8",
+	tdeathsNotified: "jL3Ewc4LS7X",
+	tdeathsRegistered: "md7brKHLz83",
+	tdeathsCertified: "SMuLVvnPIpm",
 }
 
 export const chart4 = {
-	i2: "Yx4GBhbQKMM",
-	i3: "FGQBsDGjTLh",
+	tmale: "Yx4GBhbQKMM",
+	tfemale: "FGQBsDGjTLh",
 }
 
 export const indicatorMap = {
@@ -26,10 +26,16 @@ export const indicatorMap = {
 	femaleDeaths: "JDygTkWCxQU",
 	maleDeaths: "CFMGxtTBf6m",
 
-	tbirthsNotified: "F2XcahLFxzP",
+	birthsNotified: "Z64hUZUifEF",
+	birthsRegistered: "nq7BDH3XeKc",
+	birthsCertified: "DKym5hy9DA2",
+
 	tbirthsProjection: "d7pS20J9g1J",
-	tbirthsRegistered: "md7brKHLz83",
-	tbirthsCertified: "SMuLVvnPIpm",
+	deathsNotified: "vU8Ofttev65",
+	deathsCertified: "T6TTjdahYxL",
+	registeredDeaths: "hIYU0NgVZt8",
+	
+	
 	...chart4
 };
 
