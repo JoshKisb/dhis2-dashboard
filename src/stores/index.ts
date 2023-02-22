@@ -70,7 +70,7 @@ export class Store {
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 
-		const url2 = `/api/38/analytics?dimension=kQ3qjfL2TKg:Yx4GBhbQKMM;FGQBsDGjTLh,pe:2018;2019;2020;2021;2022&filter=ou:USER_ORGUNIT&filter=dx:md7brKHLz83&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
+		const url2 = `/api/38/analytics?dimension=kQ3qjfL2TKg:Yx4GBhbQKMM;FGQBsDGjTLh,pe:202201;202202;202203;202204;202205;202206;202207;202208;202209;202210;202211;202212;2018;2019;2020;2021;2022&filter=ou:${ou}&filter=dx:md7brKHLz83&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
 		const result2 = await this.engine.link.fetch(url2).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result2, "kQ3qjfL2TKg") };
 	};
@@ -83,9 +83,9 @@ export class Store {
 		const result = await this.engine.link.fetch(url).catch((err: any) => err);
 		this.data = { ...this.data, ...this.processDataResults(result) };
 
-		const url2 = `/api/38/analytics?dimension=kQ3qjfL2TKg:Yx4GBhbQKMM;FGQBsDGjTLh,pe:202201;202202;202203;202204;202205;202206;202207;202208;202209;202210;202211;202212&filter=ou:USER_ORGUNIT&filter=dx:md7brKHLz83&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
-		const result2 = await this.engine.link.fetch(url2).catch((err: any) => err);
-		this.data = { ...this.data, ...this.processDataResults(result2, "kQ3qjfL2TKg") };
+		// const url2 = `/api/38/analytics?dimension=kQ3qjfL2TKg:Yx4GBhbQKMM;FGQBsDGjTLh,pe:&filter=ou:USER_ORGUNIT&filter=dx:md7brKHLz83&displayProperty=NAME&includeNumDen=false&skipMeta=true&skipData=false`;
+		// const result2 = await this.engine.link.fetch(url2).catch((err: any) => err);
+		// this.data = { ...this.data, ...this.processDataResults(result2, "kQ3qjfL2TKg") };
 	};
 
 	fetchMapData = async (level: "region"|"district" = "region") => {
@@ -471,7 +471,7 @@ export class Store {
 	get lineChartDeathData() {
 		const deathsNotified = this.ouData[indicatorMap.tdeathsNotified] || [];
 	
-		const periods = ["2019", "2020", "2021", "2022", "2023"];
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
 
 		return {
 			...defaultChartOptions,
@@ -510,7 +510,7 @@ export class Store {
 	get lineChart2DeathData() {
 		const deathsRegistered = this.ouData[indicatorMap.tdeathsRegistered] || [];
 
-		const periods = ["2019", "2020", "2021", "2022", "2023"];
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
 
 		return {
 			...defaultChartOptions,
@@ -549,7 +549,7 @@ export class Store {
 	get lineChart3DeathData() {
 		const deathsCertified = this.ouData[indicatorMap.tdeathsCertified] || [];
 	
-		const periods = ["2019", "2020", "2021", "2022", "2023"];
+		const periods = ["2018", "2019", "2020", "2021", "2022"];
 
 		return {
 			...defaultChartOptions,
@@ -558,7 +558,7 @@ export class Store {
 			},
 			title: {
 				...defaultChartOptions.title,
-				text: "Deaths Cerified",
+				text: "Deaths Certified",
 			},
 			plotOptions: {
 				series: {
