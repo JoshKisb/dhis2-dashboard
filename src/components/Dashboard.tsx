@@ -123,10 +123,9 @@ export const Dashboard = observer(() => {
 
 										
 										>
-										<p className="mb-0">{startCase(ky.replace(/^t/, ''))}:</p>
+										<p className="mb-0 mr-2">{startCase(ky.replace(/^t/, ''))}:</p>
 										<span
-											style={{
-												marginRight: "8px",
+											style={{												
 												fontWeight: "800",
 											}}
 										>
